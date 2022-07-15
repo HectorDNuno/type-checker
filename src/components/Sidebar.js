@@ -3,7 +3,7 @@ import TypesPage from "./TypesPage";
 import "./Sidebar.css";
 
 const Sidebar = ({ options }) => {
-  const [isClicked, setIsClicked] = useState(false);
+  const [isClicked, setIsClicked] = useState({ title: "", color: "", imageUrl: "" });
 
   return (
     <>
@@ -17,7 +17,7 @@ const Sidebar = ({ options }) => {
                   <div
                     className="individual-options"
                     onClick={() => {
-                      setIsClicked(`${type.title}`);
+                      setIsClicked({ title: `${type.title}`, color: `${type.color}`, imageUrl: `${type.imageUrl}` });
                     }}
                     style={{ backgroundColor: `#${type.color}` }}
                   >
@@ -31,7 +31,7 @@ const Sidebar = ({ options }) => {
         </ul>
       </nav>
 
-      {isClicked ? <TypesPage title={isClicked} /> : <div>Choose a type</div>}
+      {isClicked && <TypesPage type={isClicked} />}
     </>
   );
 };
