@@ -1,16 +1,41 @@
-import Nav from "react-bootstrap/Nav";
+import React, { useState } from "react";
+// import { Link } from "react-router-dom";
+// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import TypesPage from "./TypesPage";
+import "./Sidebar.css";
 
-function Sidebar() {
+const Sidebar = ({ options }) => {
+  const [isClicked, setIsClicked] = useState(false);
+
   return (
-    <Nav defaultActiveKey="/home" className="flex-column">
-      <Nav.Link href="/home">Active</Nav.Link>
-      <Nav.Link eventKey="link-1">Link</Nav.Link>
-      <Nav.Link eventKey="link-2">Link</Nav.Link>
-      <Nav.Link eventKey="disabled" disabled>
-        Disabled
-      </Nav.Link>
-    </Nav>
+    <>
+      <nav className="sidebar">
+        <input className="search-bar" type="search" placeholder="search types..." />
+        <ul className="sidebar-menu-items">
+          {options.map((type, index) => {
+            return (
+              <>
+                <li className={type.cName} key={index}>
+                  <div
+                    className="individual-options"
+                    onClick={() => {
+                      setIsClicked(`${type.title}`);
+                    }}
+                    style={{ backgroundColor: `#${type.color}` }}
+                  >
+                    <img className="types-image" src={`${type.imageUrl}`} alt={`${type.title} icon`} />
+                    <span className="dropdown-title"> {type.title} </span>
+                  </div>
+                </li>
+              </>
+            );
+          })}
+        </ul>
+      </nav>
+
+      {isClicked ? <TypesPage title={isClicked} /> : <div>Choose a type</div>}
+    </>
   );
-}
+};
 
 export default Sidebar;
