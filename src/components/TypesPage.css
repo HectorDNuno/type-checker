@@ -2,5 +2,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-left: 250px;
+  max-height: 90.9vh;
+}
+
+.page-title {
   font-size: 3rem;
+}
+
+.title-image {
+  width: 80px;
+  margin-right: 10px;
+}
+
+.title-contents {
+  margin-top: 20px;
+  padding-right: 20px;
+  border-radius: 50px;
+}
+
+.title {
+  color: white;
 }
