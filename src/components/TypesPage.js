@@ -1,10 +1,19 @@
 import React from "react";
 import "./TypesPage.css";
 
-const TypesPage = ({ title }) => {
+const TypesPage = ({ type }) => {
   return (
     <div className="types-page">
-      <div className="title"> {title} </div>
+      {type ? (
+        <div className="page-title">
+          <div className="title-contents" style={{ backgroundColor: `#${type.color}` }}>
+            <img className="title-image" src={type.imageUrl} alt={`${type.title} icon`} />
+            <span className="title">{type.title}</span>
+          </div>
+        </div>
+      ) : (
+        <div className="type-title">Choose a type</div>
+      )}
     </div>
   );
 };
