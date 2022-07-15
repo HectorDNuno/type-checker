@@ -5,6 +5,7 @@ export const Types = [
     cName: "sidebar-options",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/3/3c/Pok%C3%A9mon_Bug_Type_Icon.svg",
     color: "83c400",
+    link: "link-1",
   },
   {
     title: "Dark",
@@ -12,6 +13,7 @@ export const Types = [
     cName: "sidebar-options",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/0/09/Pok%C3%A9mon_Dark_Type_Icon.svg",
     color: "5a5366",
+    link: "link-2",
   },
   {
     title: "Dragon",
@@ -19,6 +21,7 @@ export const Types = [
     cName: "sidebar-options",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a6/Pok%C3%A9mon_Dragon_Type_Icon.svg",
     color: "0070ca",
+    link: "link-3",
   },
   {
     title: "Electric",
@@ -26,6 +29,7 @@ export const Types = [
     cName: "sidebar-options",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Pok%C3%A9mon_Electric_Type_Icon.svg",
     color: "fbd200",
+    link: "link-4",
   },
   {
     title: "Fairy",
@@ -33,6 +37,7 @@ export const Types = [
     cName: "sidebar-options",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/0/08/Pok%C3%A9mon_Fairy_Type_Icon.svg",
     color: "fb8aec",
+    link: "link-5",
   },
   {
     title: "Fighting",
@@ -40,6 +45,7 @@ export const Types = [
     cName: "sidebar-options",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/be/Pok%C3%A9mon_Fighting_Type_Icon.svg",
     color: "e12c6a",
+    link: "link-6",
   },
   {
     title: "Fire",
@@ -47,6 +53,7 @@ export const Types = [
     cName: "sidebar-options",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/5/56/Pok%C3%A9mon_Fire_Type_Icon.svg",
     color: "ff983e",
+    link: "link-7",
   },
   {
     title: "Flying",
@@ -54,6 +61,7 @@ export const Types = [
     cName: "sidebar-options",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/e0/Pok%C3%A9mon_Flying_Type_Icon.svg",
     color: "8aace3",
+    link: "link-8",
   },
   {
     title: "Ghost",
@@ -61,6 +69,7 @@ export const Types = [
     cName: "sidebar-options",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a0/Pok%C3%A9mon_Ghost_Type_Icon.svg",
     color: "4a6ab3",
+    link: "link-9",
   },
   {
     title: "Grass",
@@ -68,6 +77,7 @@ export const Types = [
     cName: "sidebar-options",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/f/f6/Pok%C3%A9mon_Grass_Type_Icon.svg",
     color: "33c049",
+    link: "link-10",
   },
   {
     title: "Ground",
@@ -75,6 +85,7 @@ export const Types = [
     cName: "sidebar-options",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/8/8d/Pok%C3%A9mon_Ground_Type_Icon.svg",
     color: "e97233",
+    link: "link-11",
   },
   {
     title: "Ice",
@@ -82,6 +93,7 @@ export const Types = [
     cName: "sidebar-options",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/8/88/Pok%C3%A9mon_Ice_Type_Icon.svg",
     color: "4ad2c1",
+    link: "link-12",
   },
   {
     title: "Normal",
@@ -89,6 +101,7 @@ export const Types = [
     cName: "sidebar-options",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/aa/Pok%C3%A9mon_Normal_Type_Icon.svg",
     color: "929ba4",
+    link: "link-13",
   },
   {
     title: "Poison",
@@ -96,6 +109,7 @@ export const Types = [
     cName: "sidebar-options",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/c/c4/Pok%C3%A9mon_Poison_Type_Icon.svg",
     color: "b767ce",
+    link: "link-14",
   },
   {
     title: "Psychic",
@@ -103,6 +117,7 @@ export const Types = [
     cName: "sidebar-options",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/ab/Pok%C3%A9mon_Psychic_Type_Icon.svg",
     color: "ff6676",
+    link: "link-15",
   },
   {
     title: "Rock",
@@ -110,6 +125,7 @@ export const Types = [
     cName: "sidebar-options",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/bb/Pok%C3%A9mon_Rock_Type_Icon.svg",
     color: "c9b787",
+    link: "link-16",
   },
   {
     title: "Steel",
@@ -117,6 +133,7 @@ export const Types = [
     cName: "sidebar-options",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/3/38/Pok%C3%A9mon_Steel_Type_Icon.svg",
     color: "5a8fa3",
+    link: "link-17",
   },
   {
     title: "Water",
@@ -124,5 +141,6 @@ export const Types = [
     cName: "sidebar-options",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/0/0b/Pok%C3%A9mon_Water_Type_Icon.svg",
     color: "3293dd",
+    link: "link-18",
   },
 ];
