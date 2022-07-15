@@ -13,8 +13,13 @@ const TypesPage = ({ type }) => {
     });
   }, [type.title]);
 
+  const allNames = pokemonNames?.map((name) => {
+    const container = `${name.pokemon.name}`;
+    return container;
+  });
+
   return (
-    <div className="types-page">
+    <div className="types-page-container">
       {type.title ? (
         <>
           <div className="page-title">
@@ -23,14 +28,13 @@ const TypesPage = ({ type }) => {
               <span className="title">{type.title}</span>
             </div>
           </div>
-          <div className="page-content">
-            <div className="name-list">
-              <ul>
-                {pokemonNames.map((name, index) => {
-                  return <li key={index}>{name.pokemon.name}</li>;
-                })}
-              </ul>
-            </div>
+
+          <div className="name-list">
+            <ul>
+              {allNames?.sort().map((name, index) => {
+                return <li key={index}>{name}</li>;
+              })}
+            </ul>
           </div>
         </>
       ) : (
