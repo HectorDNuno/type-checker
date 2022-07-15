@@ -4,7 +4,7 @@ import "./TypesPage.css";
 const TypesPage = ({ type }) => {
   return (
     <div className="types-page">
-      {type ? (
+      {type.title ? (
         <div className="page-title">
           <div className="title-contents" style={{ backgroundColor: `#${type.color}` }}>
             <img className="title-image" src={type.imageUrl} alt={`${type.title} icon`} />
@@ -12,7 +12,7 @@ const TypesPage = ({ type }) => {
           </div>
         </div>
       ) : (
-        <div className="type-title">Choose a type</div>
+        <div className="default-title">Choose a type!</div>
       )}
     </div>
   );
