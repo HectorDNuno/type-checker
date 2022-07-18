@@ -52,7 +52,7 @@
 }
 
 .list {
-  max-height: 74vh;
+  max-height: 70vh;
   overflow-y:scroll;
   width: fit-content;
   list-style: none;
