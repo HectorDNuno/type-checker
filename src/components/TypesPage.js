@@ -22,15 +22,16 @@ const TypesPage = ({ type }) => {
     <div className="types-page-container">
       {type.title ? (
         <>
-          <div className="page-title">
+          <div className="page-title-container">
             <div className="title-contents" style={{ backgroundColor: `#${type.color}` }}>
-              <img className="title-image" src={type.imageUrl} alt={`${type.title} icon`} />
-              <span className="title">{type.title}</span>
+              <img className="type-image" src={type.imageUrl} alt={`${type.title} icon`} />
+              <span className="type-title">{type.title}</span>
             </div>
           </div>
 
           <div className="name-list">
-            <ul>
+            <div className="list-title">Pokemon with type</div>
+            <ul className="list">
               {allNames?.sort().map((name, index) => {
                 return <li key={index}>{name}</li>;
               })}
