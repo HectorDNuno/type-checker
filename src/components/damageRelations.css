@@ -1,0 +1,13 @@
+.damage-relations-container {
+  display: flex;
+  width: 45%;
+  height: 400px;
+}
+
+.damage-lists {
+  display: flex;
+}
+
+.left-list, .right-list {
+  width: 300px;
+}
