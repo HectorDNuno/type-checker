@@ -1,0 +1,19 @@
+.types-page-header {
+  display: flex;
+  justify-content: center;
+}
+
+.title-container {
+  border-radius: 10px;
+  width: 300px;
+  height: 53px;
+  margin-top: 20px;
+}
+
+.type-title {
+  text-align: center;
+  text-transform: capitalize;
+  color: white;
+  margin-bottom: 0;
+}
+
