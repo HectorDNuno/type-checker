@@ -1,43 +1,54 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import TypesPageHeader from "./TypesPageHeader";
+import MovesList from "./movesWithType";
+import DamageList from "./damageRelations";
+import PokemonList from "./pokemonWithType";
 import "./TypesPage.css";
 
 const TypesPage = ({ type }) => {
-  const [typeData, setTypeData] = useState([]);
-  const [pokemonNames, setPokemonNames] = useState([]);
+  const [damageRelations, setDamageRelations] = useState([]);
+  const [movesUrls, setMovesUrls] = useState([]);
+  const [allMoves, setAllMoves] = useState([]);
 
   useEffect(() => {
     axios.get(`https://pokeapi.co/api/v2/type/${type.title.toLowerCase()}`).then((response) => {
-      setTypeData(response.data);
-      setPokemonNames(response.data.pokemon);
+      const movesPages = response.data.moves.map((item) => {
+        const movesPagesUrls = item.url;
+        return movesPagesUrls;
+      });
+      setMovesUrls(movesPages);
+
+      const damageData = response.data.damage_relations;
+      setDamageRelations(damageData);
     });
   }, [type.title]);
 
-  const allNames = pokemonNames?.map((name) => {
-    const container = `${name.pokemon.name}`;
-    return container;
-  });
+  useEffect(() => {
+    axios.all(movesUrls.map((url) => axios.get(url))).then((response) => {
+      const requestData = response.map((datum) => {
+        const dataObject = {
+          name: datum.data.name,
+          damageClass: datum.data.damage_class.name,
+        };
+        return dataObject;
+      });
+
+      setAllMoves(requestData);
+    });
+  }, [movesUrls]);
 
   return (
-    <div className="types-page-container">
+    <div className="page-container">
       {type.title ? (
-        <>
-          <div className="page-title-container">
-            <div className="title-contents" style={{ backgroundColor: `#${type.color}` }}>
-              <img className="type-image" src={type.imageUrl} alt={`${type.title} icon`} />
-              <span className="type-title">{type.title}</span>
-            </div>
+        <div className="types-page">
+          <TypesPageHeader type={type} />
+          <div className="pokemon-damage-container">
+            <DamageList damageRelations={damageRelations} />
+            <PokemonList type={type.title} />
           </div>
-
-          <div className="name-list">
-            <div className="list-title">Pokemon with type</div>
-            <ul className="list">
-              {allNames?.sort().map((name, index) => {
-                return <li key={index}>{name}</li>;
-              })}
-            </ul>
-          </div>
-        </>
+          <MovesList allMoves={allMoves} />
+        </div>
       ) : (
         <div className="default-title">Choose a type!</div>
       )}
