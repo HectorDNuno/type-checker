@@ -1,0 +1,20 @@
+.moves-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 24px;
+  margin-bottom: 50px;
+}
+
+.moves-list-container {
+  display: flex;
+  justify-content: space-around;
+  width: 75%;
+}
+
+
+
+
+
+
