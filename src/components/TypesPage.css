@@ -1,60 +1,51 @@
-.types-page-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  grid-auto-rows: minmax(100px, auto);
-  height: 87.5vh;
-  margin: 20px 20px 0px 270px;
-  max-height: 90.9vh;
+.page-container {
+  position: absolute;
+  top: 70px;
+  left: 270px;
+  right: 0;
+  bottom: 0;
+
+  background: #ffff;
+
+  z-index: 1;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
 }
 
-.page-title-container {
- width: fit-content;
- height: fit-content;
- grid-column: 2/3;
- grid-row: 1;
- align-self: center;
- justify-self: center;
+.types-page {
+  padding-top: 20px;
+  margin: 16px;
+  box-shadow: 0 1px 1px 0 rgb(0 0 0 / 12%);
 }
 
-.title-contents {
-  padding-right: 15px;
-  width: fit-content;
-  border-radius: 50px;
-  font-size: 3rem;
-}
-
-.type-image {
-  width: 80px;
-}
-
-
-.type-title {
-  color: white;
+.pokemon-damage-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 24px;
 }
 
 .default-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 87.5vh;
   color: black;
-  font-size: 4.8rem;
-  grid-column: 2/3;
-  grid-row: 1;
-  align-self: center;
-  justify-self: center;
+  font-size: 5rem;
 }
 
-.name-list {
-  grid-row: 2;
+@media (max-width: 750px) {
+  .default-title{
+    font-size: 210%;
+  } 
+  
 }
 
-.list-title {
-  font-size: 1.8rem;
-  margin-bottom: 10px;
-}
-
-.list {
-  max-height: 70vh;
-  overflow-y:scroll;
-  width: fit-content;
-  list-style: none;
-  border: 1px solid #878787
+@media (max-width: 920px) {
+  .default-title{
+    font-size: 400%;
+  } 
 }
