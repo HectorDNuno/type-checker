@@ -1,70 +1,19 @@
-# Getting Started with Create React App
+### Type-Checkr-App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+Welcome trainer! This app is actually the same project as my [Pokémon-Types-App](https://github.com/HectorDNuno/pokemon-types-app) except I built this app using React and without a Ruby backend. The purpose of this app is the same as the previous one: to be a reference tool for the video game Pokémon. There's a big UI difference with this version as opposed to the Vue version. I made it simpler to navigate, and it's overall more organized. I still use the [PokéAPI](https://pokeapi.co/) for the defense, offense, and moves with type sections. As for the pokémon with type section, I decided to use a JSON file instead. I did this just to make that section load the quickest on the page. The PokéAPI is great but getting all the data I needed for the pokémon section took several HTTP requests which made it load slowly on the page. I got the JSON file with every pokémon from an open source project that you can check out here: [pkmn.help](https://github.com/wavebeem/pkmn.help). I was inspired to match the type names to their colors from that same project as well.
 
-In the project directory, you can run:
+One of the biggest challenges I had was positioning everything on the page. I was having issues with the sidebar and the content to the right of it. Lukcily, the position property solved most of my problems. Another challenge was getting the type names in the defense/offense section to have their background color. Like I said previously, I got this idea from the pkmn.help project. The issue was that the types in the sidebar come from a local file but the types in the defense/offense sections come from the PokéAPI. The way I impleneted it was pretty simple. I already had a file that contained the colors of each type, so I matched the data in my file with the data I was receiving from the API. By using a good old .some() method I was able to match everything up perfectly and return a div with the correct background color.
 
-### `npm start`
+For the most part, this project is complete. Other than more styling, and directory organization, this project fufills its intended purpose. Although, I would like to be able to load the sections that use the API quicker. Or at least add some placeholder while the components wait to receive the data. I'd also like to find a way to deal with pokémon enteries that don't have an image. Adding a Pokédex section would be cool but that's outside of the project's scope.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+That's all trainer!
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Dependencies
 
-### `npm test`
+Axios
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
+$ npm install axios
+```
