@@ -1,7 +1,7 @@
 /* eslint-disable */
 import "./App.css";
 import Sidebar from "/src/components/sidebar";
-import Navbar from "./components/topNavbar";
+import Navbar from "/src/components/topNavbar";
 import { Types } from "./typesData";
 
 function App() {
