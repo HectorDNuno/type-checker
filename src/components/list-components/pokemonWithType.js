@@ -4,7 +4,7 @@ import "./pokemonWithType.css";
 import { Types } from "/Users/hector/Code/React/type-checker/src/typesData.js";
 const Pokemon = require("/Users/hector/Code/React/type-checker/src/pokemon.json");
 
-function pokemonWithTypeList({ type }) {
+function PokemonWithTypeList({ type }) {
   function setBackgroundColor(type) {
     let color = "";
     if (Types.some((item) => item.title === type)) {
@@ -57,4 +57,4 @@ function pokemonWithTypeList({ type }) {
   );
 }
 
-export default pokemonWithTypeList;
+export default PokemonWithTypeList;

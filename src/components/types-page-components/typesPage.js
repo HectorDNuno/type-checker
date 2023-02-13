@@ -3,8 +3,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import TypesPageHeader from "./typesPageHeader";
 import MovesList from "../list-components/movesWithType";
-import DamageList from "../list-components/damageRelations";
-import PokemonList from "../list-components/pokemonWithType";
+import DamageRelationsList from "../list-components/damageRelations";
+import PokemonWithTypeList from "../list-components/pokemonWithType";
 import "./typesPage.css";
 
 const TypesPage = ({ type }) => {
@@ -45,8 +45,8 @@ const TypesPage = ({ type }) => {
         <div className="types-page">
           <TypesPageHeader type={type} />
           <div className="pokemon-damage-container">
-            <DamageList damageRelations={damageRelations} />
-            <PokemonList type={type.title} />
+            <DamageRelationsList damageRelations={damageRelations} />
+            <PokemonWithTypeList type={type.title} />
           </div>
           <MovesList allMoves={allMoves} />
         </div>
