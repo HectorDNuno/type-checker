@@ -1,5 +1,5 @@
 import React from "react";
-import "./TypesPageHeader.css";
+import "./typesPageHeader.css";
 
 function TypesPageHeader({ type }) {
   return (

@@ -1,6 +1,6 @@
 import React from "react";
 import "./damageList.css";
-import { Types } from "./TypesData";
+import { Types } from "/Users/hector/Code/React/type-checker/src/typesData.js";
 
 function DamageList({ title, damage }) {
   function setBackgroundColor(type) {

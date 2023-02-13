@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import TypesPage from "./TypesPage";
-import "./Sidebar.css";
+import TypesPage from "./types-page-components/typesPage";
+import "./sidebar.css";
 
 const Sidebar = ({ types }) => {
   const [selectedType, setSelectedType] = useState({ title: "", color: "" });

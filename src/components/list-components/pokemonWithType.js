@@ -1,7 +1,7 @@
 import React from "react";
 import "./pokemonWithType.css";
-import { Types } from "./TypesData";
-const Pokemon = require("../pokemon");
+import { Types } from "/Users/hector/Code/React/type-checker/src/typesData.js";
+const Pokemon = require("/Users/hector/Code/React/type-checker/src/pokemon.json");
 
 function pokemonWithTypeList({ type }) {
   function setBackgroundColor(type) {

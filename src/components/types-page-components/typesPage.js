@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import TypesPageHeader from "./TypesPageHeader";
-import MovesList from "./movesWithType";
-import DamageList from "./damageRelations";
-import PokemonList from "./pokemonWithType";
-import "./TypesPage.css";
+import TypesPageHeader from "./typesPageHeader";
+import MovesList from "../list-components/movesWithType";
+import DamageList from "../list-components/damageRelations";
+import PokemonList from "../list-components/pokemonWithType";
+import "./typesPage.css";
 
 const TypesPage = ({ type }) => {
   const [damageRelations, setDamageRelations] = useState([]);
