@@ -1,7 +1,7 @@
 import "./App.css";
-import Sidebar from "./components/Sidebar";
-import { Types } from "./components/TypesData";
-import TopNavbar from "./components/TopNavbar";
+import Sidebar from "./components/sidebar";
+import TopNavbar from "./components/topNavbar";
+import { Types } from "./typesData";
 
 function App() {
   return (
