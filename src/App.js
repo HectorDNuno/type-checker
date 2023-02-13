@@ -1,6 +1,6 @@
 /* eslint-disable */
 import "./App.css";
-import Sidebar from "./components/sidebar";
+import Sidebar from "/src/components/sidebar";
 import Navbar from "./components/topNavbar";
 import { Types } from "./typesData";
 
