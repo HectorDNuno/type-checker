@@ -1,8 +1,8 @@
 /* eslint-disable */
 import React from "react";
 import "./pokemonWithType.css";
-import { Types } from "../../typesData";
-const Pokemon = require("../../pokemon.json");
+import { Types } from "../typesData";
+const Pokemon = require("../pokemon.json");
 
 function PokemonWithTypeList({ type }) {
   function setBackgroundColor(type) {

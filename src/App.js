@@ -2,7 +2,7 @@
 import "./App.css";
 import Sidebar from "./components/sidebar";
 import Navbar from "./components/navbar";
-import { Types } from "./typesData";
+import { Types } from "./components/typesData";
 
 function App() {
   return (

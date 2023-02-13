@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from "react";
 import "./damageList.css";
-import { Types } from "/Users/hector/Code/React/type-checker/src/typesData.js";
+import { Types } from "../typesData.js";
 
 function DamageList({ title, damage }) {
   function setBackgroundColor(type) {
