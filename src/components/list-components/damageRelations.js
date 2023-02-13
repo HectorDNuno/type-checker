@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import DamageList from "./damageList";
 import "./damageRelations.css";

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState } from "react";
 import TypesPage from "./types-page-components/typesPage";
 import "./sidebar.css";

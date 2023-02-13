@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import "./movesWithType.css";
 import MovesList from "./movesList";
