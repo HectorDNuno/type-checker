@@ -10,7 +10,7 @@ One of the biggest challenges I had was positioning everything on the page. I wa
 
 For the most part, this project is complete. Other than some more styling, this project fufills its intended purpose. I would like to be able to load the sections that use the API quicker, or at least add some placeholder while the components wait to receive the data. I'd also like to find a way to deal with pokémon enteries that don't have an image. Adding a Pokédex section would be cool but that's outside of the project's scope.
 
-That's all trainer!
+You can check out my project [here](https://type-checkr-react.netlify.app/)!
 
 ### Dependencies
 
