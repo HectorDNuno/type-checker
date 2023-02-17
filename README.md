@@ -1,4 +1,4 @@
-### Type-Checkr-App
+# Type-Checkr-App
 
 ## Description
 
