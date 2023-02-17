@@ -1,4 +1,5 @@
 ### Type-Checkr-App
+![project screenshot](https://github.com/HectorDNuno/type-checker/blob/main/public/project-screenshot.png?raw=true)
 
 ## Description
 
