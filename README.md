@@ -1,5 +1,7 @@
 # Type-Checkr-App
 
+![project screenshot](https://github.com/HectorDNuno/type-checker/blob/main/public/project-screenshot.png?raw=true)
+
 ## Description
 
 Welcome trainer! This app is actually the same project as my [Pokémon-Types-App](https://github.com/HectorDNuno/pokemon-types-app) except I built this app using React and without a Ruby backend. The purpose of this app is the same as the previous one: to be a reference tool for the video game Pokémon. There's a big UI difference with this version as opposed to the Vue version. I made it simpler to navigate, and it's overall more organized. I still use the [PokéAPI](https://pokeapi.co/) for the defense, offense, and moves with type sections. As for the pokémon with type section, I decided to use a JSON file instead. I did this just to make that section load the quickest on the page. The PokéAPI is great but getting all the data I needed for the pokémon section took several HTTP requests which made it load slowly on the page. I got the JSON file with every pokémon from an open source project that you can check out here: [pkmn.help](https://github.com/wavebeem/pkmn.help). I was inspired to match the type names to their colors from that same project as well.
