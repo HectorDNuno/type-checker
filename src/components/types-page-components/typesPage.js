@@ -45,7 +45,7 @@ const TypesPage = ({ type }) => {
     <div className="page-container">
       {type.title ? (
         <div className="types-page">
-          <TypesPageHeader type={type.title} />
+          <TypesPageHeader type={type} />
           <div className="pokemon-damage-container">
             <DamageRelationsList damageRelations={damageRelations} />
             <PokemonWithTypeList type={type.title} />
