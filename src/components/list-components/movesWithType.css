@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 24px;
+  margin-top: 75px;
   margin-bottom: 50px;
 }
 
@@ -13,8 +13,30 @@
   width: 75%;
 }
 
+.moves-section-title {
+  width: 30%;
+  height: 50px;
+  display: flex;
+}
 
+.number {
+  margin-left: 12px;
+}
 
+.skeleton {
+  animation: skeleton-loading 1s linear infinite alternate;
+  width: 60px;
+  height: 35px;
+  border-radius: 5px;
+  opacity: .40;
+}
 
+@keyframes skeleton-loading {
+  0% {
+    background-color: hsl(200, 20%, 70%);
+  }
 
-
+  100% {
+    background-color: hsl(200, 20%, 95%);
+  }
+}
