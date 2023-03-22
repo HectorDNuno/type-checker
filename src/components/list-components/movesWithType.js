@@ -4,6 +4,10 @@ import "./movesWithType.css";
 import MovesList from "./movesList";
 
 function movesWithTypeList({ allMoves, isLoading, type }) {
+  const physicalMoves = allMoves.filter((move) => move.damageClass === "physical");
+  const specialMoves = allMoves.filter((move) => move.damageClass === "special");
+  const statusMoves = allMoves.filter((move) => move.damageClass === "status");
+
   return (
     <div className="moves-container">
       <div className="list-title">
@@ -26,9 +30,9 @@ function movesWithTypeList({ allMoves, isLoading, type }) {
       </div>
 
       <div className="moves-list-container">
-        <MovesList title={"Physical"} moves={allMoves} damageType={"physical"} />
-        <MovesList title={"Special"} moves={allMoves} damageType={"special"} />
-        <MovesList title={"Status"} moves={allMoves} damageType={"status"} />
+        <MovesList title={"Physical"} moves={physicalMoves} damageType={"physical"} />
+        <MovesList title={"Special"} moves={specialMoves} damageType={"special"} />
+        <MovesList title={"Status"} moves={statusMoves} damageType={"status"} />
       </div>
     </div>
   );
