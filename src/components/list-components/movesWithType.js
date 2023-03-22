@@ -10,7 +10,7 @@ function movesWithTypeList({ allMoves, isLoading, type }) {
 
   return (
     <div className="moves-container">
-      <div className="list-title">
+      <div className="moves-section-title">
         <h2>Moves with type</h2>
 
         {!isLoading &&
