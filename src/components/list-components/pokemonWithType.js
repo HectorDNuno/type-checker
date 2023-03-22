@@ -30,7 +30,7 @@ function PokemonWithTypeList({ type }) {
   return (
     <div className="pokemon-list-container">
       <h2 className="list-title">Pokémon with type {getPokemonWithType(type).length} </h2>
-      <div className="pokemon-container">
+      <div id="list" className="pokemon-container">
         <ul className="pokemon-list">
           {getPokemonWithType(type)
             ?.sort()
