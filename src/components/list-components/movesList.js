@@ -12,8 +12,8 @@ function MovesList({ title, moves, damageType }) {
           .map((move, index) => {
             return (
               <>
-                <li id="list" className="moves" key={index}>
-                  {move.damageClass === damageType && <p className="move"> {move.name} </p>}
+                <li className="moves" key={index}>
+                  <p> {move.name} </p>
                 </li>
               </>
             );
