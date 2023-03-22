@@ -6,6 +6,13 @@ import "./sidebar.css";
 const Sidebar = ({ types }) => {
   const [selectedType, setSelectedType] = useState({ title: "", color: "" });
 
+  function resetScroll() {
+    const list = document.getElementById("list");
+    const movesList = document.querySelectorAll(".moves-list");
+    list.scrollTop = 0;
+    movesList.scrollTop = 0;
+  }
+
   return (
     <>
       <nav className="sidebar">
@@ -17,6 +24,7 @@ const Sidebar = ({ types }) => {
                   className="name-section"
                   onClick={() => {
                     setSelectedType({ title: `${type.title}`, color: `${type.color}` });
+                    resetScroll();
                   }}
                   style={{ backgroundColor: `${type.color}` }}
                 >
