@@ -10,8 +10,9 @@ function PokemonWithTypeList({ type }) {
   const [alphabeticalOrder, setAlphabeticalOrder] = useState(false);
   const [orderButtonText, setOrderButtonText] = useState("alphabetical");
 
-  const toggleShinySprites = () => {
+  const toggleSprites = () => {
     setShinySprites(!shinySprites);
+    list.scrollTop = 0;
 
     if (shinyButtonText === "shiny") {
       setShinyButtonText("normal");
@@ -22,6 +23,7 @@ function PokemonWithTypeList({ type }) {
 
   const toggleOrder = () => {
     setAlphabeticalOrder(!alphabeticalOrder);
+    list.scrollTop = 0;
 
     if (orderButtonText === "alphabetical") {
       setOrderButtonText("numerical");
@@ -59,7 +61,11 @@ function PokemonWithTypeList({ type }) {
       return pokemonObject;
     });
 
-    return organizedPokemonArray;
+    if (alphabeticalOrder) {
+      return organizedPokemonArray.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0));
+    } else {
+      return organizedPokemonArray.sort();
+    }
   }
 
   return (
@@ -97,7 +103,7 @@ function PokemonWithTypeList({ type }) {
       </div>
 
       <div className="toggle-buttons">
-        <button type="button" onClick={toggleShinySprites}>
+        <button type="button" onClick={toggleSprites}>
           {shinyButtonText} versions
         </button>
 
