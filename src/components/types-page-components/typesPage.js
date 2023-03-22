@@ -11,6 +11,7 @@ const TypesPage = ({ type }) => {
   const [damageRelations, setDamageRelations] = useState([]);
   const [movesUrls, setMovesUrls] = useState([]);
   const [allMoves, setAllMoves] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     axios.get(`https://pokeapi.co/api/v2/type/${type.title.toLowerCase()}`).then((response) => {
@@ -36,6 +37,7 @@ const TypesPage = ({ type }) => {
       });
 
       setAllMoves(requestData);
+      setIsLoading(false);
     });
   }, [movesUrls]);
 
@@ -43,12 +45,12 @@ const TypesPage = ({ type }) => {
     <div className="page-container">
       {type.title ? (
         <div className="types-page">
-          <TypesPageHeader type={type} />
+          <TypesPageHeader type={type.title} />
           <div className="pokemon-damage-container">
             <DamageRelationsList damageRelations={damageRelations} />
             <PokemonWithTypeList type={type.title} />
           </div>
-          <MovesList allMoves={allMoves} />
+          <MovesList allMoves={allMoves} isLoading={isLoading} type={type.title} />
         </div>
       ) : (
         <div className="default-title">Choose a type!</div>
