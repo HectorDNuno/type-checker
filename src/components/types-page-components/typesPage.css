@@ -29,23 +29,9 @@
 }
 
 .default-title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 87.5vh;
+  position: absolute;
+  top: 300px;
+  left: 300px;
   color: black;
   font-size: 5rem;
-}
-
-@media (max-width: 750px) {
-  .default-title{
-    font-size: 210%;
-  } 
-  
-}
-
-@media (max-width: 920px) {
-  .default-title{
-    font-size: 400%;
-  } 
 }
