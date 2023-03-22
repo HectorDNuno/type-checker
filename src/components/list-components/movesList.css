@@ -4,11 +4,16 @@
   width: 270px;
   border: 1px solid lightgray;
   height: 30vh;
-  overflow-y:scroll;
+  overflow-y: scroll;
 }
 
 .moves {
   text-align: center;
+  background: #f8f8f8;
+}
+
+.moves:nth-child(odd) {
+  background: none;
 }
 
 
