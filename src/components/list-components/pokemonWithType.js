@@ -14,22 +14,14 @@ function PokemonWithTypeList({ type }) {
     setShinySprites(!shinySprites);
     list.scrollTop = 0;
 
-    if (shinyButtonText === "shiny") {
-      setShinyButtonText("normal");
-    } else {
-      setShinyButtonText("shiny");
-    }
+    shinyButtonText === "shiny" ? setShinyButtonText("normal") : setShinyButtonText("shiny");
   };
 
   const toggleOrder = () => {
     setAlphabeticalOrder(!alphabeticalOrder);
     list.scrollTop = 0;
 
-    if (orderButtonText === "alphabetical") {
-      setOrderButtonText("numerical");
-    } else {
-      setOrderButtonText("alphabetical");
-    }
+    orderButtonText === "alphabetical" ? setOrderButtonText("numerical") : setOrderButtonText("alphabetical");
   };
 
   function setBackgroundColor(type) {
