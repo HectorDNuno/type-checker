@@ -45,7 +45,7 @@
 @media screen and (max-width: 600px) {
 
   .moves-container {
-    margin: 70px auto;
+    margin-top: 70px;
   }
 
   .moves-list-container {
