@@ -27,10 +27,6 @@ button:active {
   margin: 12px 15px 0 0;
 }
 
-.pokemon-list-container {
-  height: 400px;
-}
-
 .pokemon-container {
   border: 1px solid lightgray;
   max-height: 42vh;
