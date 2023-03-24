@@ -1,6 +1,5 @@
 button {
-  max-width: 200px;
-  min-width: 200px;
+  min-width: 150px;
   height: 45px;
   padding: 8px;
   border-radius: 5px;
@@ -49,7 +48,6 @@ button:active {
   align-items: center;
   background: #f8f8f8;
   padding-right: 5px;
-  height: 75px;
 }
 
 
@@ -70,7 +68,6 @@ button:active {
 
 .pokemon-number {
   min-width: 50px;
-  max-width: 50px;
   text-align: center;
 }
 
@@ -139,4 +136,20 @@ button:active {
   color: white;
   padding: 5px;
   text-shadow: 0 1px 0 #000, 0 0 1px rgb(0 0 0 / 60%), 0 0 2px rgb(0 0 0 / 70%), 0 0 3px rgb(0 0 0 / 80%), 0 0 4px rgb(0 0 0 / 90%);
+}
+
+@media screen and (max-width: 600px) {
+  .pokemon-list-container {
+    margin: 12px auto;
+  }
+
+  .name-type-section {
+    /* height: 90px; */
+    margin-bottom: 12px;
+  }
+
+  .pokemon-types {
+    flex-direction: column;
+    margin-bottom: 5px;
+  }
 }

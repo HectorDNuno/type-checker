@@ -17,3 +17,9 @@
   margin-bottom: 0;
 }
 
+@media screen and (max-width: 600px) {
+
+  .type-title {
+    margin-top: 10px;
+  }
+}

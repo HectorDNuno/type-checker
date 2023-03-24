@@ -3,8 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 75px;
-  margin-bottom: 50px;
+  min-height: 500px;
 }
 
 .moves-list-container {
@@ -14,16 +13,18 @@
 }
 
 .moves-section-title {
-  width: 30%;
+  width: 100%;
   height: 50px;
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .number {
   margin-left: 12px;
 }
 
-.skeleton {
+.number-skeleton {
   animation: skeleton-loading 1s linear infinite alternate;
   width: 60px;
   height: 35px;
@@ -38,5 +39,16 @@
 
   100% {
     background-color: hsl(200, 20%, 95%);
+  }
+}
+
+@media screen and (max-width: 600px) {
+
+  .moves-container {
+    margin: 70px auto;
+  }
+
+  .moves-list-container {
+    flex-direction: column;
   }
 }
