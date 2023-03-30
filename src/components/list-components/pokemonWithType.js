@@ -4,7 +4,7 @@ import "./pokemonWithType.css";
 import { Types } from "../typesData";
 const Pokemon = require("../pokemon.json");
 
-function PokemonWithTypeList({ type }) {
+const PokemonWithTypeList = ({ type }) => {
   const [shinySprites, setShinySprites] = useState(false);
   const [shinyButtonText, setShinyButtonText] = useState("shiny");
   const [alphabeticalOrder, setAlphabeticalOrder] = useState(false);
@@ -24,7 +24,7 @@ function PokemonWithTypeList({ type }) {
     orderButtonText === "alphabetical" ? setOrderButtonText("numerical") : setOrderButtonText("alphabetical");
   };
 
-  function setBackgroundColor(type) {
+  const setBackgroundColor = (type) => {
     let color = "";
     if (Types.some((item) => item.title === type)) {
       for (let i = 0; i < Types.length; i++) {
@@ -38,9 +38,9 @@ function PokemonWithTypeList({ type }) {
         {type}
       </div>
     );
-  }
+  };
 
-  function getPokemonWithType(type) {
+  const getPokemonWithType = (type) => {
     const pokemonWithType = Pokemon.filter((pokemon) => pokemon.types.includes(type));
     const organizedPokemonArray = pokemonWithType.map((pokemon) => {
       const pokemonObject = {
@@ -58,7 +58,7 @@ function PokemonWithTypeList({ type }) {
     } else {
       return organizedPokemonArray.sort();
     }
-  }
+  };
 
   return (
     <div className="pokemon-list-container">
@@ -105,6 +105,6 @@ function PokemonWithTypeList({ type }) {
       </div>
     </div>
   );
-}
+};
 
 export default PokemonWithTypeList;
