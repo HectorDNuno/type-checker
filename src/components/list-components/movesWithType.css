@@ -28,6 +28,7 @@
   animation: skeleton-loading 1s linear infinite alternate;
   width: 60px;
   height: 35px;
+  margin-left: 12px;
   border-radius: 5px;
   opacity: .40;
 }
