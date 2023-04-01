@@ -40,11 +40,15 @@
     left: 0;
     right: 0;
 
-    height: 85px;
+    height: 65px;
     width: 100%;
     box-shadow: 0 4px 10px 0 rgb(0 0 0 / 39%);
     z-index: 2;
     overflow-x: scroll;
+  }
+
+  .name-section {
+    min-height: 35px;
   }
 
   .sidebar-options {
