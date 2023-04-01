@@ -93,8 +93,7 @@ const PokemonWithTypeList = ({ type }) => {
           })}
         </ul>
       </div>
-
-      {/* <div className="toggle-buttons">
+      <div className="toggle-buttons">
         <button type="button" onClick={toggleSprites}>
           {shinyButtonText} versions
         </button>
@@ -102,24 +101,6 @@ const PokemonWithTypeList = ({ type }) => {
         <button type="button" onClick={toggleOrder}>
           {orderButtonText} order
         </button>
-      </div> */}
-
-      <div className="switches">
-        <div className="shiny-switch">
-          <div className="switch-text"> shiny sprites </div>
-          <label className="switch">
-            <input type="checkbox" className="checkbox" />
-            <div onClick={toggleSprites} className="slider"></div>
-          </label>
-        </div>
-
-        <div className="order-switch">
-          <div className="switch-text">alphabetical order</div>
-          <label className="switch">
-            <input type="checkbox" className="checkbox" />
-            <div onClick={toggleOrder} className="slider"></div>
-          </label>
-        </div>
       </div>
     </div>
   );
