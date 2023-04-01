@@ -4,13 +4,13 @@ import Sidebar from "./components/sidebar";
 import Navbar from "./components/navbar";
 import { Types } from "./components/typesData";
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <Navbar />
       <Sidebar types={Types} />
     </div>
   );
-}
+};
 
 export default App;

@@ -3,8 +3,8 @@ import React from "react";
 import "./damageList.css";
 import { Types } from "../typesData.js";
 
-function DamageList({ title, damage }) {
-  function setBackgroundColor(type) {
+const DamageList = ({ title, damage }) => {
+  const setBackgroundColor = (type) => {
     let color = "";
     if (Types.some((item) => item.title === type)) {
       for (let i = 0; i < Types.length; i++) {
@@ -19,7 +19,7 @@ function DamageList({ title, damage }) {
         {type}
       </div>
     );
-  }
+  };
 
   return (
     <div className="wrapper">
@@ -37,6 +37,6 @@ function DamageList({ title, damage }) {
       </ul>
     </div>
   );
-}
+};
 
 export default DamageList;

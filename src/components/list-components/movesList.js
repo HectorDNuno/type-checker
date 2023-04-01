@@ -2,7 +2,7 @@
 import React from "react";
 import "./movesList.css";
 
-function MovesList({ title, moves, damageType }) {
+const MovesList = ({ title, moves, damageType }) => {
   return (
     <div className="all-moves">
       <h4 className={`section-title ${damageType} `}> {title} </h4>
@@ -22,5 +22,5 @@ function MovesList({ title, moves, damageType }) {
       </ul>
     </div>
   );
-}
+};
 export default MovesList;

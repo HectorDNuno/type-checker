@@ -3,7 +3,7 @@ import React from "react";
 import "./movesWithType.css";
 import MovesList from "./movesList";
 
-function movesWithTypeList({ allMoves, isLoading, type }) {
+const movesWithTypeList = ({ allMoves, isLoading, type }) => {
   const physicalMoves = allMoves.filter((move) => move.damageClass === "physical");
   const specialMoves = allMoves.filter((move) => move.damageClass === "special");
   const statusMoves = allMoves.filter((move) => move.damageClass === "status");
@@ -36,6 +36,6 @@ function movesWithTypeList({ allMoves, isLoading, type }) {
       </div>
     </div>
   );
-}
+};
 
 export default movesWithTypeList;

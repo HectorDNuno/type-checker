@@ -3,7 +3,7 @@ import React from "react";
 import DamageList from "./damageList";
 import "./damageRelations.css";
 
-function DamageRelationsList({ damageRelations }) {
+const DamageRelationsList = ({ damageRelations }) => {
   return (
     <div className="damage-relations-container">
       <div className="left-list">
@@ -21,6 +21,6 @@ function DamageRelationsList({ damageRelations }) {
       </div>
     </div>
   );
-}
+};
 
 export default DamageRelationsList;
