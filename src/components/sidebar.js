@@ -1,12 +1,29 @@
 /* eslint-disable */
-import React, { useState } from "react";
-import TypesPage from "./types-page-components/typesPage";
+import React, { useContext } from "react";
+import { selectedTypeContext } from "../selectedTypeContext";
+import { Types } from "./typesData";
 import "./sidebar.css";
 
-const Sidebar = ({ types }) => {
-  const [selectedType, setSelectedType] = useState({ title: "", color: "" });
+const Sidebar = () => {
+  const { setSelectedType } = useContext(selectedTypeContext);
+  const types = Types;
 
-  const list = document.getElementById("list");
+  const changeSelectedTypeColor = (e, color) => {
+    const allSideBarOptions = document.querySelectorAll(".name-section");
+    allSideBarOptions.forEach((option) => {
+      option.style.backgroundColor = "";
+      option.style.color = "#000000";
+    });
+
+    const selected = e.target;
+    selected.style.backgroundColor = color;
+    selected.style.color = "#FFFFFF";
+  };
+
+  const resetListPosition = () => {
+    const list = document.getElementById("list");
+    list.scrollTop = 0;
+  };
 
   return (
     <>
@@ -17,21 +34,19 @@ const Sidebar = ({ types }) => {
               <div className={type.cName} key={index}>
                 <div
                   className="name-section"
-                  onClick={() => {
+                  onClick={(e) => {
                     setSelectedType({ title: `${type.title}`, color: `${type.color}` });
-                    list.scrollTop = 0;
+                    changeSelectedTypeColor(e, type.color);
+                    resetListPosition();
                   }}
-                  style={{ backgroundColor: `${type.color}` }}
                 >
-                  <span className="type-name"> {type.title} </span>
+                  {type.title}
                 </div>
               </div>
             );
           })}
         </div>
       </nav>
-
-      {selectedType && <TypesPage type={selectedType} />}
     </>
   );
 };

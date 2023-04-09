@@ -7,10 +7,10 @@ const movesWithTypeList = ({ allMoves, isLoading, type }) => {
   const physicalMoves = allMoves.filter((move) => move.damageClass === "physical");
   const specialMoves = allMoves.filter((move) => move.damageClass === "special");
   const statusMoves = allMoves.filter((move) => move.damageClass === "status");
-
   return (
     <div className="moves-container">
       <div className="moves-section-title">
+        <h2>Moves with type:</h2>
         <h2>Moves with type:</h2>
 
         {!isLoading &&
@@ -30,9 +30,9 @@ const movesWithTypeList = ({ allMoves, isLoading, type }) => {
       </div>
 
       <div className="moves-list-container">
-        <MovesList title={"Physical"} moves={physicalMoves} damageType={"physical"} />
-        <MovesList title={"Special"} moves={specialMoves} damageType={"special"} />
-        <MovesList title={"Status"} moves={statusMoves} damageType={"status"} />
+        <MovesList moves={physicalMoves} damageType={"physical"} isLoading={isLoading} />
+        <MovesList moves={specialMoves} damageType={"special"} isLoading={isLoading} />
+        <MovesList moves={statusMoves} damageType={"status"} isLoading={isLoading} />
       </div>
     </div>
   );

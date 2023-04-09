@@ -25,12 +25,40 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: black;
   font-size: 20px;
   min-height: 50px;
   border-radius: 4px;
   cursor: pointer;
   text-transform: capitalize;
+  background: lightgrey;
+}
+
+@media screen and (max-width: 600px) {
+  .sidebar {
+    position: absolute;
+    top: 8%;
+    left: 0;
+    right: 0;
+
+    height: 65px;
+    width: 100%;
+    box-shadow: 0 4px 10px 0 rgb(0 0 0 / 39%);
+    z-index: 2;
+    overflow-x: scroll;
+  }
+
+  .name-section {
+    min-height: 35px;
+  }
+
+  .sidebar-options {
+    margin: 0px 3px;
+  }
+
+  .scroll {
+    display: flex;
+  }
 }
 
 @media screen and (max-width: 600px) {
