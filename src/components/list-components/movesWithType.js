@@ -11,7 +11,6 @@ const movesWithTypeList = ({ allMoves, isLoading, type }) => {
     <div className="moves-container">
       <div className="moves-section-title">
         <h2>Moves with type:</h2>
-        <h2>Moves with type:</h2>
 
         {!isLoading &&
         allMoves.some(
