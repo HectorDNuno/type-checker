@@ -2,10 +2,10 @@
 import React from "react";
 import "./movesList.css";
 
-const MovesList = ({ title, moves, damageType }) => {
+const MovesList = ({ moves, damageType }) => {
   return (
     <div className="all-moves">
-      <h4 className={`section-title ${damageType} `}> {title} </h4>
+      <h4 className={`section-title ${damageType} `}> {damageType} </h4>
       <div className="moves-count">{moves.length} moves </div>
       <ul className="moves-list">
         {moves
