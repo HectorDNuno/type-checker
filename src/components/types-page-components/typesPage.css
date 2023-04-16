@@ -48,8 +48,10 @@
 
   .default-title {
     font-size: 2.5rem;
-    left: 50px;
-    width: max-content;
+    top: 45%;
+    left: 0;
+    width: 100%;
+    text-align: center;
   }
 
   .pokemon-damage-container {
