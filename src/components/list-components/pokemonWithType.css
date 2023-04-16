@@ -148,4 +148,12 @@ button:active {
     flex-direction: column;
     margin-bottom: 5px;
   }
+
+  .pokemon-container {
+    scroll-snap-type: block proximity;
+  }
+
+  .name-type-section {
+    scroll-snap-align: start;
+  }
 }
