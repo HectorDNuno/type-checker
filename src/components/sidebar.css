@@ -36,7 +36,7 @@
 
 @media screen and (max-width: 600px) {
   .sidebar {
-    position: absolute;
+    position: fixed;
     top: 8%;
     left: 0;
     right: 0;
@@ -46,6 +46,8 @@
     box-shadow: 0 4px 10px 0 rgb(0 0 0 / 39%);
     z-index: 2;
     overflow-x: scroll;
+
+    scroll-snap-type: inline proximity;
   }
 
   .name-section {
@@ -54,6 +56,8 @@
 
   .sidebar-options {
     margin: 0px 3px;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
 
   .scroll {
