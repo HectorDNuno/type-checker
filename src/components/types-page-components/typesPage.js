@@ -16,33 +16,53 @@ const TypesPage = () => {
 
   const { selectedType } = useContext(selectedTypeContext);
 
-  useEffect(() => {
-    axios.get(`https://pokeapi.co/api/v2/type/${selectedType.title.toLowerCase()}`).then((response) => {
-      const movesPages = response.data.moves.map((item) => {
-        const movesPagesUrls = item.url;
-        return movesPagesUrls;
+  const getTypeData = async () => {
+    try {
+      const response = await axios.get(`https://pokeapi.co/api/v2/type/${selectedType.title}`);
+
+      const { data } = response;
+      const { damage_relations, moves } = data;
+
+      const moveUrls = moves.map((move) => {
+        const url = move.url;
+        return url;
       });
-      setMovesUrls(movesPages);
 
-      const damageData = response.data.damage_relations;
-      setDamageRelations(damageData);
-    });
-  }, [selectedType.title]);
+      setDamageRelations(damage_relations);
+      setMovesUrls(moveUrls);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  useEffect(() => {
-    axios.all(movesUrls.map((url) => axios.get(url))).then((response) => {
-      const requestData = response.map((datum) => {
-        const dataObject = {
-          name: datum.data.name,
-          damageClass: datum.data.damage_class.name,
+  const getMovesData = async () => {
+    try {
+      const responses = await Promise.all(
+        movesUrls.map(async (url) => {
+          const response = await axios.get(url);
+          return response;
+        })
+      );
+
+      const movesData = responses.map((response) => {
+        const object = {
+          name: response.data.name,
+          damageClass: response.data.damage_class.name,
         };
-        return dataObject;
+        return object;
       });
 
-      setAllMoves(requestData);
+      setAllMoves(movesData);
       setIsLoading(false);
-    });
-  }, [movesUrls]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getTypeData();
+    getMovesData();
+  }, [selectedType.title, movesUrls]);
 
   return (
     <div className="page-container">
