@@ -2,9 +2,8 @@
 import React, { useState } from "react";
 import "./pokemonWithType.css";
 import { Types } from "../typesData";
-const Pokemon = require("../pokemon.json");
 
-const PokemonWithTypeList = ({ type }) => {
+const PokemonWithTypeList = ({ pokemon }) => {
   const [shinySprites, setShinySprites] = useState(false);
   const [shinyButtonText, setShinyButtonText] = useState("shiny");
   const [alphabeticalOrder, setAlphabeticalOrder] = useState(false);
@@ -40,59 +39,44 @@ const PokemonWithTypeList = ({ type }) => {
     );
   };
 
-  const getPokemonWithType = (type) => {
-    const pokemonWithType = Pokemon.filter((pokemon) => pokemon.types.includes(type));
-    const organizedPokemonArray = pokemonWithType.map((pokemon) => {
-      const pokemonObject = {
-        name: pokemon.name.toLowerCase(),
-        number: pokemon.number,
-        spriteURL: pokemon.spriteURL,
-        shinySpriteURL: pokemon.shinySpriteURL,
-        types: pokemon.types,
-      };
-      return pokemonObject;
-    });
-
-    if (alphabeticalOrder) {
-      return organizedPokemonArray.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0));
+  const sortPokemon = (pokemon, alphabeticalOrder) => {
+    if (alphabeticalOrder === true) {
+      pokemon.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0));
     } else {
-      return organizedPokemonArray.sort();
+      pokemon.sort((a, b) => a.number - b.number);
     }
+
+    return pokemon.map((monster, index) => {
+      return (
+        <>
+          <li className="name-type-section" key={index}>
+            {shinySprites ? (
+              <img className="pokemon-sprite" src={`${monster.shinySprite}`} alt="shiny sprite" loading="lazy" />
+            ) : (
+              <img className="pokemon-sprite" src={`${monster.sprite}`} alt="pokemon sprite" loading="lazy" />
+            )}
+
+            <div className="pokemon-number">#{monster.number}</div>
+            <div className="pokemon-name">{monster.name}</div>
+
+            <div className="pokemon-types">
+              <div className="first-type">{setBackgroundColor(monster.types[0])}</div>
+              {monster.types[1] && <div className="second-type"> {setBackgroundColor(monster.types[1])} </div>}
+            </div>
+          </li>
+        </>
+      );
+    });
   };
 
   return (
     <div className="pokemon-list-container">
-      <h2>Pokémon with type: {getPokemonWithType(type).length} </h2>
+      <h2>Pokémon with type: {pokemon.length} </h2>
+
       <div id="list" className="pokemon-container">
-        <ul className="pokemon-list">
-          {getPokemonWithType(type)?.map((pokemon, index) => {
-            return (
-              <>
-                <li className="name-type-section" key={index}>
-                  {shinySprites ? (
-                    <img
-                      className="pokemon-sprite"
-                      src={`${pokemon.shinySpriteURL}`}
-                      alt="shiny sprite"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <img className="pokemon-sprite" src={`${pokemon.spriteURL}`} alt="pokemon sprite" loading="lazy" />
-                  )}
-
-                  <div className="pokemon-number">#{pokemon.number}</div>
-                  <div className="pokemon-name">{pokemon.name}</div>
-
-                  <div className="pokemon-types">
-                    <div className="first-type">{setBackgroundColor(pokemon.types[0])}</div>
-                    {pokemon.types[1] && <div className="second-type"> {setBackgroundColor(pokemon.types[1])} </div>}
-                  </div>
-                </li>
-              </>
-            );
-          })}
-        </ul>
+        <ul className="pokemon-list">{sortPokemon(pokemon, alphabeticalOrder)}</ul>
       </div>
+
       <div className="toggle-buttons">
         <button type="button" onClick={toggleSprites}>
           {shinyButtonText} versions
