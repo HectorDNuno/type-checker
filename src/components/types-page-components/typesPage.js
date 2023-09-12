@@ -6,12 +6,14 @@ import TypesPageHeader from "./typesPageHeader";
 import MovesList from "../list-components/movesWithType";
 import DamageRelationsList from "../list-components/damageRelations";
 import PokemonWithTypeList from "../list-components/pokemonWithType";
+import { wordsToFilter } from "./wordsToFilter";
 import "./typesPage.css";
 
 const TypesPage = () => {
   const [typeData, setTypeData] = useState({
     damageRelations: [],
-    allMoves: [],
+    moves: [],
+    pokemon: [],
     isLoading: true,
   });
 
@@ -29,7 +31,7 @@ const TypesPage = () => {
         }
 
         const { data } = response;
-        const { damage_relations, moves } = data;
+        const { damage_relations, moves, pokemon } = data;
 
         const movesUrls = moves.map((move) => move.url);
 
@@ -45,9 +47,32 @@ const TypesPage = () => {
           damageClass: response.data.damage_class.name,
         }));
 
+        const pokemonUrls = pokemon.map((monster) => monster.pokemon.url);
+
+        const fetchPokemonData = await Promise.all(
+          pokemonUrls.map(async (url) => {
+            const response = await axios.get(url);
+            const { data } = response;
+            return data;
+          })
+        );
+
+        const pokemonData = fetchPokemonData.map((pokemon) => ({
+          name: pokemon.name,
+          number: pokemon.id,
+          sprite: pokemon.sprites.front_default,
+          shinySprite: pokemon.sprites.front_shiny,
+          types: [pokemon.types[0].type.name, pokemon.types[1] && pokemon.types[1].type.name],
+        }));
+
+        const filteredPokemonData = pokemonData.filter(
+          (pokemon) => !wordsToFilter.some((str) => pokemon.name.includes(str))
+        );
+
         setTypeData({
           damageRelations: damage_relations,
-          allMoves: movesData,
+          moves: movesData,
+          pokemon: filteredPokemonData,
           isLoading: false,
         });
       } catch (error) {
@@ -62,7 +87,7 @@ const TypesPage = () => {
     };
   }, [selectedType.title]);
 
-  const { damageRelations, allMoves, isLoading } = typeData;
+  const { damageRelations, moves, pokemon, isLoading } = typeData;
 
   return (
     <div className="page-container">
@@ -71,9 +96,9 @@ const TypesPage = () => {
           <TypesPageHeader />
           <div className="pokemon-damage-container">
             <DamageRelationsList damageRelations={damageRelations} />
-            <PokemonWithTypeList type={selectedType.title} />
+            <PokemonWithTypeList pokemon={pokemon} />
           </div>
-          <MovesList allMoves={allMoves} isLoading={isLoading} type={selectedType.title} />
+          <MovesList moves={moves} isLoading={isLoading} type={selectedType.title} />
         </div>
       ) : (
         <div className="default-title">Choose a type!</div>
