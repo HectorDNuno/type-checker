@@ -3,17 +3,17 @@ import React from "react";
 import "./movesWithType.css";
 import MovesList from "./movesList";
 
-const movesWithTypeList = ({ allMoves, isLoading, type }) => {
-  const physicalMoves = allMoves.filter((move) => move.damageClass === "physical");
-  const specialMoves = allMoves.filter((move) => move.damageClass === "special");
-  const statusMoves = allMoves.filter((move) => move.damageClass === "status");
+const movesWithTypeList = ({ moves, isLoading, type }) => {
+  const physicalMoves = moves.filter((move) => move.damageClass === "physical");
+  const specialMoves = moves.filter((move) => move.damageClass === "special");
+  const statusMoves = moves.filter((move) => move.damageClass === "status");
   return (
     <div className="moves-container">
       <div className="moves-section-title">
         <h2>Moves with type:</h2>
 
         {!isLoading &&
-        allMoves.some(
+        moves.some(
           (move) =>
             move.name.includes(`${type}`) ||
             move.name.includes("vacuum-wave") ||
@@ -22,7 +22,7 @@ const movesWithTypeList = ({ allMoves, isLoading, type }) => {
             move.name.includes("scorching-sands") ||
             move.name.includes("yawn")
         ) ? (
-          <h2 className="number">{allMoves.length}</h2>
+          <h2 className="number">{moves.length}</h2>
         ) : (
           <h2 className="number-skeleton"></h2>
         )}
