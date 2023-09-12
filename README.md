@@ -1,6 +1,6 @@
 # Type-Checkr-App
 
-![project screenshot](https://github.com/HectorDNuno/type-checker/blob/sprite-outline/src/assets/project-screenshot.png?raw=true)
+![project screenshot](https://github.com/HectorDNuno/type-checker/blob/main/src/assets/project-screenshot.png?raw=true)
 
 ## Description
 
