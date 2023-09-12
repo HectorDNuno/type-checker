@@ -31,7 +31,7 @@ const Sidebar = () => {
         <div className="scroll">
           {types.map((type, index) => {
             return (
-              <div className={type.cName} key={index}>
+              <div className="sidebar-options" key={index}>
                 <div
                   className="name-section"
                   onClick={(e) => {
