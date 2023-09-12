@@ -19,55 +19,61 @@ const TypesPage = () => {
 
   const { selectedType } = useContext(selectedTypeContext);
 
+  const fetchMovesData = async (moves) => {
+    const movesUrls = moves.map((move) => move.url);
+
+    const fetchMoves = movesUrls.map(async (url) => {
+      const response = await axios.get(url);
+      return response.data;
+    });
+
+    const movesData = await Promise.all(fetchMoves);
+
+    return movesData.map((move) => ({
+      name: move.name,
+      damageClass: move.damage_class.name,
+    }));
+  };
+
+  const fetchAndFilterPokemonData = async (pokemon) => {
+    const pokemonUrls = pokemon.map((monster) => monster.pokemon.url);
+
+    const fetchPokemon = pokemonUrls.map(async (url) => {
+      const response = await axios.get(url);
+      return response.data;
+    });
+
+    const pokemonData = await Promise.all(fetchPokemon);
+
+    return pokemonData
+      .map((pokemonData) => ({
+        name: pokemonData.name,
+        number: pokemonData.id,
+        sprite: pokemonData.sprites.front_default,
+        shinySprite: pokemonData.sprites.front_shiny,
+        types: [pokemonData.types[0].type.name, pokemonData.types[1]?.type.name].filter(Boolean),
+      }))
+      .filter((pokemon) => !wordsToFilter.some((str) => pokemon.name.includes(str)));
+  };
+
   useEffect(() => {
     let isMounted = true;
 
     const fetchData = async () => {
       try {
-        const response = await axios.get(`https://pokeapi.co/api/v2/type/${selectedType.title}`);
+        const typeResponse = await axios.get(`https://pokeapi.co/api/v2/type/${selectedType.title}`);
 
         if (!isMounted) {
           return;
         }
 
-        const { data } = response;
+        const { data } = typeResponse;
         const { damage_relations, moves, pokemon } = data;
 
-        const movesUrls = moves.map((move) => move.url);
+        const movesData = await fetchMovesData(moves);
+        const filteredPokemonData = await fetchAndFilterPokemonData(pokemon);
 
-        const fetchMovesData = await Promise.all(
-          movesUrls.map(async (url) => {
-            const response = await axios.get(url);
-            return response;
-          })
-        );
-
-        const movesData = fetchMovesData.map((response) => ({
-          name: response.data.name,
-          damageClass: response.data.damage_class.name,
-        }));
-
-        const pokemonUrls = pokemon.map((monster) => monster.pokemon.url);
-
-        const fetchPokemonData = await Promise.all(
-          pokemonUrls.map(async (url) => {
-            const response = await axios.get(url);
-            const { data } = response;
-            return data;
-          })
-        );
-
-        const pokemonData = fetchPokemonData.map((pokemon) => ({
-          name: pokemon.name,
-          number: pokemon.id,
-          sprite: pokemon.sprites.front_default,
-          shinySprite: pokemon.sprites.front_shiny,
-          types: [pokemon.types[0].type.name, pokemon.types[1] && pokemon.types[1].type.name],
-        }));
-
-        const filteredPokemonData = pokemonData.filter(
-          (pokemon) => !wordsToFilter.some((str) => pokemon.name.includes(str))
-        );
+        console.log(filteredPokemonData);
 
         setTypeData({
           damageRelations: damage_relations,
