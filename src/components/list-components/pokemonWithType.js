@@ -5,85 +5,72 @@ import { Types } from "../typesData";
 
 const PokemonWithTypeList = ({ pokemon }) => {
   const [shinySprites, setShinySprites] = useState(false);
-  const [shinyButtonText, setShinyButtonText] = useState("shiny");
   const [alphabeticalOrder, setAlphabeticalOrder] = useState(false);
-  const [orderButtonText, setOrderButtonText] = useState("alphabetical");
+
+  const toggleState = (stateSetter) => {
+    stateSetter((prevState) => !prevState);
+    list.scrollTop = 0;
+  };
 
   const toggleSprites = () => {
-    setShinySprites(!shinySprites);
-    list.scrollTop = 0;
-
-    shinyButtonText === "shiny" ? setShinyButtonText("normal") : setShinyButtonText("shiny");
+    toggleState(setShinySprites);
   };
 
   const toggleOrder = () => {
-    setAlphabeticalOrder(!alphabeticalOrder);
-    list.scrollTop = 0;
-
-    orderButtonText === "alphabetical" ? setOrderButtonText("numerical") : setOrderButtonText("alphabetical");
+    toggleState(setAlphabeticalOrder);
   };
 
   const setBackgroundColor = (type) => {
-    let color = "";
-    if (Types.some((item) => item.title === type)) {
-      for (let i = 0; i < Types.length; i++) {
-        if (Types[i].title === type) {
-          color += Types[i].color;
-        }
-      }
-    }
+    const typeColor = Types.find((item) => item.title === type)?.color;
     return (
-      <div className="type-item" style={{ backgroundColor: `${color}` }}>
+      <div className="type-item" style={{ backgroundColor: typeColor }}>
         {type}
       </div>
     );
   };
 
-  const sortPokemon = (pokemon, alphabeticalOrder) => {
-    if (alphabeticalOrder === true) {
-      pokemon.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0));
-    } else {
-      pokemon.sort((a, b) => a.number - b.number);
-    }
+  const pokemonCopy = [...pokemon];
 
-    return pokemon.map((monster, index) => {
-      return (
-        <>
-          <li className="name-type-section" key={index}>
-            {shinySprites ? (
-              <img className="pokemon-sprite" src={`${monster.shinySprite}`} alt="shiny sprite" loading="lazy" />
-            ) : (
-              <img className="pokemon-sprite" src={`${monster.sprite}`} alt="pokemon sprite" loading="lazy" />
-            )}
-
-            <div className="pokemon-number">#{monster.number}</div>
-            <div className="pokemon-name">{monster.name}</div>
-
-            <div className="pokemon-types">
-              <div className="first-type">{setBackgroundColor(monster.types[0])}</div>
-              {monster.types[1] && <div className="second-type"> {setBackgroundColor(monster.types[1])} </div>}
-            </div>
-          </li>
-        </>
-      );
-    });
-  };
+  if (alphabeticalOrder) {
+    pokemonCopy.sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
+  } else {
+    pokemonCopy.sort((a, b) => a.number - b.number);
+  }
 
   return (
     <div className="pokemon-list-container">
       <h2>Pokémon with type: {pokemon.length} </h2>
 
       <div id="list" className="pokemon-container">
-        <ul className="pokemon-list">{sortPokemon(pokemon, alphabeticalOrder)}</ul>
+        <ul className="pokemon-list">
+          {pokemonCopy.map((pokemon, index) => (
+            <li className="name-type-section" key={index}>
+              <img
+                className="pokemon-sprite"
+                src={shinySprites ? pokemon.shinySprite : pokemon.sprite}
+                alt={shinySprites ? "shiny sprite" : "sprite"}
+                loading="lazy"
+              />
+
+              <div className="pokemon-number">#{pokemon.number}</div>
+              <div className="pokemon-name">{pokemon.name}</div>
+
+              <div className="pokemon-types">
+                <div className="first-type">{setBackgroundColor(pokemon.types[0])}</div>
+                {pokemon.types[1] && <div className="second-type">{setBackgroundColor(pokemon.types[1])}</div>}
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
 
       <div className="toggle-buttons">
         <button type="button" onClick={toggleSprites}>
-          {shinyButtonText} versions
+          {shinySprites ? "normal" : "shiny"} versions
         </button>
 
         <button type="button" onClick={toggleOrder}>
-          {orderButtonText} order
+          {alphabeticalOrder ? "numerical" : "alphabetical"} order
         </button>
       </div>
     </div>
