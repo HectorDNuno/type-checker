@@ -9,60 +9,60 @@ import PokemonWithTypeList from "../list-components/pokemonWithType";
 import "./typesPage.css";
 
 const TypesPage = () => {
-  const [damageRelations, setDamageRelations] = useState([]);
-  const [movesUrls, setMovesUrls] = useState([]);
-  const [allMoves, setAllMoves] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [typeData, setTypeData] = useState({
+    damageRelations: [],
+    allMoves: [],
+    isLoading: true,
+  });
 
   const { selectedType } = useContext(selectedTypeContext);
 
-  const getTypeData = async () => {
-    try {
-      const response = await axios.get(`https://pokeapi.co/api/v2/type/${selectedType.title}`);
+  useEffect(() => {
+    let isMounted = true;
 
-      const { data } = response;
-      const { damage_relations, moves } = data;
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`https://pokeapi.co/api/v2/type/${selectedType.title}`);
 
-      const moveUrls = moves.map((move) => {
-        const url = move.url;
-        return url;
-      });
+        if (!isMounted) {
+          return;
+        }
 
-      setDamageRelations(damage_relations);
-      setMovesUrls(moveUrls);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+        const { data } = response;
+        const { damage_relations, moves } = data;
 
-  const getMovesData = async () => {
-    try {
-      const responses = await Promise.all(
-        movesUrls.map(async (url) => {
-          const response = await axios.get(url);
-          return response;
-        })
-      );
+        const movesUrls = moves.map((move) => move.url);
 
-      const movesData = responses.map((response) => {
-        const object = {
+        const fetchMovesData = await Promise.all(
+          movesUrls.map(async (url) => {
+            const response = await axios.get(url);
+            return response;
+          })
+        );
+
+        const movesData = fetchMovesData.map((response) => ({
           name: response.data.name,
           damageClass: response.data.damage_class.name,
-        };
-        return object;
-      });
+        }));
 
-      setAllMoves(movesData);
-      setIsLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+        setTypeData({
+          damageRelations: damage_relations,
+          allMoves: movesData,
+          isLoading: false,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-  useEffect(() => {
-    getTypeData();
-    getMovesData();
-  }, [selectedType.title, movesUrls]);
+    fetchData();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [selectedType.title]);
+
+  const { damageRelations, allMoves, isLoading } = typeData;
 
   return (
     <div className="page-container">
