@@ -1,13 +1,14 @@
 .types-page-header {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .title-container {
   border-radius: 10px;
   width: 300px;
-  height: 53px;
-  margin-top: 20px;
+  padding: .30rem;
+  margin-top: 1rem;
 }
 
 .type-title {

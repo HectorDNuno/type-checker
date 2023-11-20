@@ -1,15 +1,7 @@
 .navbar {
   background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);
-  box-sizing: border-box;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-
-  height: 70px;
-  width: 100%;
+  grid-area: 1 / 1 / 2 / 7;
   box-shadow: 0 4px 10px 0 rgb(0 0 0 / 39%);
-  z-index: 2;
 }
 
 .navbar-logo {
@@ -19,12 +11,4 @@
   font-size: 2rem;
 }
 
-@media screen and (max-width: 960px) {
-
-  .navbar-logo {
-    position: fixed;
-    top: 0;
-    left: 0;
-    transform: translate(25%, 40%);
-  }
-}
+@media screen and (max-width: 960px) {}
