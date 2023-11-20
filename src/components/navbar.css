@@ -11,4 +11,8 @@
   font-size: 2rem;
 }
 
-@media screen and (max-width: 960px) {}
+@media screen and (max-width: 960px) {
+  .navbar-logo {
+    margin: 0 auto;
+  }
+}
