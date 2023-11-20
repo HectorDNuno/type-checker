@@ -1,7 +1,7 @@
 .sidebar {
   background-color: #1a1919;
   grid-area: 2 / 1 / 6 / 2;
-  overflow: auto;
+  overflow-x: auto;
   box-shadow: 0 0 5px 0 rgb(0 0 0 / 35%);
   padding: .7rem;
 }
