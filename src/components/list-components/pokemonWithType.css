@@ -216,4 +216,9 @@ button:active {
   .name-type-section {
     scroll-snap-align: start;
   }
+
+  .number-title-section {
+    display: flex;
+    justify-content: center;
+  }
 }
