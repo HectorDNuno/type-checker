@@ -12,8 +12,6 @@ html {
   -moz-text-size-adjust: none;
   -webkit-text-size-adjust: none;
   text-size-adjust: none;
-  overflow: hidden;
-  height: 100%;
 }
 
 /* Remove default margin in favour of better control in authored CSS */
@@ -41,8 +39,6 @@ body {
   min-height: 100vh;
   line-height: 1.5;
   font-family: 'Poppins', sans-serif;
-  overflow: auto;
-  height: 100%;
 }
 
 /* Set shorter line heights on headings and interactive elements */
@@ -93,18 +89,4 @@ textarea:not([rows]) {
 /* Anything that has been anchored to should have extra scroll margin */
 :target {
   scroll-margin-block: 5ex;
-}
-
-.App {
-  background: #f2f2f2;
-  height: 100svh;
-
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-}
-
-@media screen and (max-width: 600px) {
-  .App {
-    grid-template-rows: repeat(2, .1fr) 1fr;
-  }
 }

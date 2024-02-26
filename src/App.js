@@ -1,20 +1,18 @@
 /* eslint-disable */
 import "./App.css";
-import { useState } from "react";
+import React, { useState } from "react";
 import { selectedTypeContext } from "./selectedTypeContext";
 import Sidebar from "./components/sidebar";
-import Navbar from "./components/navbar";
-import TypesPage from "./components/types-page-components/typesPage";
+import Main from "./components/main";
 
 const App = () => {
   const [selectedType, setSelectedType] = useState({ title: "", color: "" });
 
   return (
-    <div className="App">
+    <div className="app">
       <selectedTypeContext.Provider value={{ selectedType, setSelectedType }}>
-        <Navbar />
+        <Main />
         <Sidebar />
-        <TypesPage />
       </selectedTypeContext.Provider>
     </div>
   );

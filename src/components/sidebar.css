@@ -1,5 +1,6 @@
 .sidebar {
   position: fixed;
+  top: 0;
   height: 100%;
   width: 240px;
   background: #1a1919;
@@ -29,7 +30,9 @@
 .sidebar .sidebar-links {
   margin-top: 10px;
   padding: 0;
-  /* overflow-y: scroll; */
+  max-height: calc(100vh - 80px);
+  overflow: auto;
+  scrollbar-color: #C1C1C1 #1a1919;
 }
 
 .sidebar .sidebar-links li {
@@ -39,24 +42,23 @@
   height: 3.125rem;
 }
 
+.sidebar .sidebar-links li:last-child {
+  margin-bottom: 26px;
+}
+
 .sidebar .sidebar-links li a {
   height: 100%;
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
   text-decoration: none;
   transition: all 0.4s ease;
 }
 
 .sidebar .sidebar-links li a:hover {
-  background: #081D45;
-}
-
-.sidebar .sidebar-links li i {
-  min-width: 60px;
-  text-align: center;
-  font-size: 18px;
-  color: #fff;
+  background: #fff;
+  color: #000;
 }
 
 .sidebar .sidebar-links li a .links_name {

@@ -8,11 +8,11 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <div class="navbar-item">
-        <i class="fa-solid fa-bars"></i>
+      <div className="navbar-item">
+        <i className="fa-solid fa-bars"></i>
       </div>
 
-      <div class="navbar-item type-name" style={{ background: selectedType.color }}>
+      <div className="navbar-item type-name" style={{ background: selectedType.color }}>
         <span> {selectedType.title} </span>
       </div>
     </nav>

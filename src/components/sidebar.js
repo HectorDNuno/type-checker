@@ -19,9 +19,9 @@ const Sidebar = () => {
 
   return (
     <div className="sidebar">
-      <div class="logo-details">
-        <i class="bx bxl-c-plus-plus">L</i>
-        <span class="logo_name">Type Checkr</span>
+      <div className="logo-details">
+        <i className="fa-solid fa-circle-check"></i>
+        <span className="logo_name">Type Checkr</span>
       </div>
 
       <ul className="sidebar-links">
@@ -36,7 +36,6 @@ const Sidebar = () => {
             }}
           >
             <a href="#">
-              <i className="bx bx-grid-alt"></i>
               <span className="links-name"> {type.title} </span>
             </a>
           </li>
