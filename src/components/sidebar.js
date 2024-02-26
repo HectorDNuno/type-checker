@@ -18,26 +18,31 @@ const Sidebar = () => {
   };
 
   return (
-    <nav className="sidebar">
-      <div className="scroll">
-        {Types.map((type, index) => (
-          <div className="sidebar-options" key={index}>
-            <div
-              className="name-section"
-              style={{
-                backgroundColor: index === selectedTypeIndex ? type.color : "#D3D3D3",
-                color: index === selectedTypeIndex ? "#FFFFFF" : "#000000",
-              }}
-              onClick={() => {
-                handleTypeClick(type, index);
-              }}
-            >
-              {type.title}
-            </div>
-          </div>
-        ))}
+    <div className="sidebar">
+      <div class="logo-details">
+        <i class="bx bxl-c-plus-plus">L</i>
+        <span class="logo_name">Type Checkr</span>
       </div>
-    </nav>
+
+      <ul className="sidebar-links">
+        {Types.map((type, index) => (
+          <li
+            key={index}
+            style={{
+              backgroundColor: index === selectedTypeIndex ? type.color : "#1a1919",
+            }}
+            onClick={() => {
+              handleTypeClick(type, index);
+            }}
+          >
+            <a href="#">
+              <i className="bx bx-grid-alt"></i>
+              <span className="links-name"> {type.title} </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 
