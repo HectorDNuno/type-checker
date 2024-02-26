@@ -7,13 +7,15 @@ const Navbar = () => {
   const { selectedType } = useContext(selectedTypeContext);
 
   return (
-    <>
-      <nav className="navbar">
-        <div className="navbar-logo">
-          Type Checkr <i className="fas fa-circle-check" style={{ color: `${selectedType.color}` }} />
-        </div>
-      </nav>
-    </>
+    <nav className="navbar">
+      <div class="navbar-item">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+
+      <div class="navbar-item type-name" style={{ background: selectedType.color }}>
+        <span> {selectedType.title} </span>
+      </div>
+    </nav>
   );
 };
 

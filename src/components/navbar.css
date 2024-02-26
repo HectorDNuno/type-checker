@@ -1,18 +1,34 @@
 .navbar {
-  background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);
-  grid-area: 1 / 1 / 2 / 7;
-  box-shadow: 0 4px 10px 0 rgb(0 0 0 / 39%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  left: 240px;
+  z-index: 100;
+
+  height: 80px;
+  width: calc(100% - 240px);
+
+  background: #fff;
+  padding: 0 20px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  transition: all 0.5s ease;
 }
 
-.navbar-logo {
+.navbar .navbar-item {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.navbar .navbar-item i {
+  cursor: pointer;
+}
+
+.navbar .type-name {
+  border-radius: 50px;
+  padding: .5rem 1rem;
+}
+
+.navbar .type-name span {
   color: #fff;
-  margin-left: 20px;
-  text-decoration: none;
-  font-size: 2rem;
-}
-
-@media screen and (max-width: 960px) {
-  .navbar-logo {
-    margin: 0 auto;
-  }
 }
