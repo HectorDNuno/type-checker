@@ -24,11 +24,27 @@
   padding: 15px 14px;
   border-radius: 12px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
 }
 
 .overview-boxes .box-topic {
   font-size: 20px;
   font-weight: 500;
+}
+
+.overview-boxes .physical {
+  background: #f49584;
+  color: #f8da87;
+}
+
+.overview-boxes .special {
+  background: #94a8cc;
+  color: #8f8594;
+}
+
+.overview-boxes .status {
+  background: #cbc6bc;
+  color: #fcfcfc;
 }
 
 .content .box .number {
@@ -56,9 +72,10 @@
 }
 
 .content .pokedex-container .type-details {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  max-height: 455px;
+  min-height: 455px;
+  overflow: auto;
+  scrollbar-color: #C1C1C1 #fff;
 }
 
 .pokedex-container .box .title {
@@ -66,25 +83,33 @@
   font-weight: 500;
 }
 
-.type-matchups .type-details li.topic {
-  font-size: 20px;
-  font-weight: 500;
-}
-
-.type-matchups .type-details li.sub-topic {
-  font-size: 17px;
-  font-weight: 500;
-}
-
-.type-matchups .type-details li {
+.type-matchups .type-details .details li {
+  display: inline-block;
   list-style: none;
-  margin: .5rem 0;
+  margin: .5rem .5rem .5rem 0;
+  padding: .5rem;
+  width: 6rem;
+  border-radius: .5rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.type-matchups .type-details .details .li-container {
+  min-height: 4rem;
+}
+
+.type-matchups .type-details .topic {
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.type-matchups .type-details .sub-topic {
+  font-size: 17px;
 }
 
 .type-matchups .type-details li a {
-  font-size: 18px;
-  color: #333;
-  font-size: 400;
+  color: #fff;
   text-decoration: none;
 }
 
@@ -146,7 +171,7 @@
 
 .pokedex-container .all-pokemon li .dex-details .type {
   padding: .5rem;
-  width: 5rem;
+  width: 6rem;
   border-radius: .5rem;
   color: #fff;
   font-weight: 600;
@@ -166,6 +191,23 @@
   .content .pokedex-container .all-pokemon {
     width: 95%;
     margin: 0 20px 0px 20px;
+  }
+
+
+  .pokedex-container .all-pokemon ul {
+    padding: 0;
+  }
+
+  .pokedex-container .all-pokemon .min-height {
+    min-height: 7.5rem;
+  }
+
+  .pokedex-container .all-pokemon li .dex-details {
+    flex-direction: column;
+  }
+
+  .pokedex-container .all-pokemon li .dex-details .type {
+    margin-top: .5rem;
   }
 
   .content .pokedex-container .moves {
