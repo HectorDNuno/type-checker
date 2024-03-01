@@ -116,26 +116,26 @@ const Content = () => {
           </div>
         </div>
 
-        <div className="box">
+        <a href="#physical" className="box physical">
           <div className="right-side">
             <div className="box-topic">Physical Moves</div>
             <div className="number"> {physicalMoves.length} </div>
           </div>
-        </div>
+        </a>
 
-        <div className="box">
+        <a href="#special" className="box special">
           <div className="right-side">
             <div className="box-topic">Special Moves</div>
             <div className="number">{specialMoves.length}</div>
           </div>
-        </div>
+        </a>
 
-        <div className="box">
+        <a href="#status" className="box status">
           <div className="right-side">
             <div className="box-topic">Status Moves</div>
             <div className="number">{statusMoves.length}</div>
           </div>
-        </div>
+        </a>
       </div>
 
       <div className="pokedex-container">
@@ -143,66 +143,63 @@ const Content = () => {
           <div className="title">Type Matchups</div>
           <div className="type-details">
             <ul className="details">
-              <li className="topic">Defense</li>
-              <li className="sub-topic">Takes 2x from</li>
-              <li>
-                <a href="#">02 Jan 2021</a>
-              </li>
-              <li>
-                <a href="#">02 Jan 2021</a>
-              </li>
-              <li>
-                <a href="#">02 Jan 2021</a>
-              </li>
-              <li>
-                <a href="#">02 Jan 2021</a>
-              </li>
-              <li>
-                <a href="#">02 Jan 2021</a>
-              </li>
-              <li>
-                <a href="#">02 Jan 2021</a>
-              </li>
-              <li>
-                <a href="#">02 Jan 2021</a>
-              </li>
-              <li>
-                <a href="#">02 Jan 2021</a>
-              </li>
-              <li>
-                <a href="#">02 Jan 2021</a>
-              </li>
+              <div className="topic">Defense</div>
+              <div className="sub-topic">Takes 2x from</div>
+              <div className="li-container">
+                {typeData.damageRelations.double_damage_from?.map((type) => (
+                  <li className="type" style={{ backgroundColor: setBackgroundColor(type.name) }}>
+                    <a href="#"> {type.name} </a>
+                  </li>
+                ))}
+              </div>
+
+              <div className="sub-topic">Takes 1/2x from</div>
+              <div className="li-container">
+                {typeData.damageRelations.half_damage_from?.map((type) => (
+                  <li className="type" style={{ backgroundColor: setBackgroundColor(type.name) }}>
+                    <a href="#"> {type.name} </a>
+                  </li>
+                ))}
+              </div>
+
+              <div className="sub-topic">Takes 0x from</div>
+              <div className="li-container">
+                {typeData.damageRelations.no_damage_from?.map((type) => (
+                  <li className="type" style={{ backgroundColor: setBackgroundColor(type.name) }}>
+                    <a href="#"> {type.name} </a>
+                  </li>
+                ))}
+              </div>
             </ul>
 
             <ul className="details">
-              <li className="topic">Offense</li>
-              <li>
-                <a href="#">Alex Doe</a>
-              </li>
-              <li>
-                <a href="#">David Mart</a>
-              </li>
-              <li>
-                <a href="#">Roe Parter</a>
-              </li>
-              <li>
-                <a href="#">Diana Penty</a>
-              </li>
-              <li>
-                <a href="#">Martin Paw</a>
-              </li>
-              <li>
-                <a href="#">Doe Alex</a>
-              </li>
-              <li>
-                <a href="#">Aiana Lexa</a>
-              </li>
-              <li>
-                <a href="#">Rexel Mags</a>
-              </li>
-              <li>
-                <a href="#">Tiana Loths</a>
-              </li>
+              <div className="topic">Offense</div>
+              <div className="sub-topic">Deals 2x to</div>
+              <div className="li-container">
+                {typeData.damageRelations.double_damage_to?.map((type) => (
+                  <li className="type" style={{ backgroundColor: setBackgroundColor(type.name) }}>
+                    <a href="#"> {type.name} </a>
+                  </li>
+                ))}
+              </div>
+
+              <div className="sub-topic">Deals 1/2x to</div>
+              <div className="li-container">
+                {typeData.damageRelations.half_damage_to?.map((type) => (
+                  <li className="type" style={{ backgroundColor: setBackgroundColor(type.name) }}>
+                    <a href="#"> {type.name} </a>
+                  </li>
+                ))}
+              </div>
+
+              <div className="sub-topic">Deals 0x to</div>
+              <div className="li-container">
+                {typeData.damageRelations.no_damage_to?.map((type) => (
+                  <li className="type" style={{ backgroundColor: setBackgroundColor(type.name) }}>
+                    <a href="#"> {type.name} </a>
+                  </li>
+                ))}
+              </div>
             </ul>
           </div>
         </div>
@@ -212,7 +209,7 @@ const Content = () => {
 
           <ul>
             {pokemonCopy.map((pokemon) => (
-              <li>
+              <li className="min-height">
                 <a href="#" className="pokemon-list">
                   <img src={pokemon.sprite} alt={`${pokemon.name} sprite`}></img>
                   <span> #{pokemon.number} </span>
@@ -236,7 +233,7 @@ const Content = () => {
       </div>
 
       <div className="pokedex-container">
-        <div className="all-pokemon box moves">
+        <div className="all-pokemon box moves" id="physical">
           <div className="title">Physical Moves</div>
           <ul>
             {physicalMoves.map((move) => (
@@ -249,7 +246,7 @@ const Content = () => {
           </ul>
         </div>
 
-        <div className="all-pokemon box moves">
+        <div className="all-pokemon box moves" id="special">
           <div className="title">Special Moves</div>
           <ul>
             {specialMoves.map((move) => (
@@ -262,7 +259,7 @@ const Content = () => {
           </ul>
         </div>
 
-        <div className="all-pokemon box moves">
+        <div className="all-pokemon box moves" id="status">
           <div className="title">Status Moves</div>
           <ul>
             {statusMoves.map((move) => (
