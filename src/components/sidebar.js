@@ -1,12 +1,12 @@
 /* eslint-disable */
 import React, { useContext, useState } from "react";
-import { selectedTypeContext, sidebarContext } from "../selectedTypeContext";
+import { SelectedTypeContext, SidebarContext } from "../Contexts";
 import { Types } from "../typesData";
 import "./sidebar.css";
 
 const Sidebar = () => {
-  const { setSelectedType } = useContext(selectedTypeContext);
-  const { menuClass, setMenuClass } = useContext(sidebarContext);
+  const { setSelectedType } = useContext(SelectedTypeContext);
+  const { menuClass, setMenuClass } = useContext(SidebarContext);
 
   // Initialize state for the index of the currently selected type
   const [selectedTypeIndex, setSelectedTypeIndex] = useState(null);

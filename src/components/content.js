@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./content.css";
-import { selectedTypeContext } from "../selectedTypeContext";
+import { SelectedTypeContext } from "../Contexts";
 import { Types } from "../typesData";
 import axios from "axios";
 import { wordsToFilter } from "../wordsToFilter";
@@ -16,7 +16,7 @@ const Content = () => {
   const [alphabeticalOrder, setAlphabeticalOrder] = useState(false);
   const [shinySprites, setShinySprites] = useState(false);
 
-  const { selectedType } = useContext(selectedTypeContext);
+  const { selectedType } = useContext(SelectedTypeContext);
 
   const fetchMovesData = async (moves) => {
     const movesUrls = moves.map((move) => move.url);

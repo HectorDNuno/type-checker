@@ -1,11 +1,11 @@
 /* eslint-disable */
 import React, { useContext } from "react";
-import { selectedTypeContext, sidebarContext } from "../selectedTypeContext";
+import { SelectedTypeContext, SidebarContext } from "../Contexts";
 import "./navbar.css";
 
 const Navbar = () => {
-  const { selectedType } = useContext(selectedTypeContext);
-  const { setMenuClass, menuClass } = useContext(sidebarContext);
+  const { selectedType } = useContext(SelectedTypeContext);
+  const { setMenuClass, menuClass } = useContext(SidebarContext);
 
   const toggleSidebar = () => {
     setMenuClass(menuClass === "hidden" ? "" : "hidden");

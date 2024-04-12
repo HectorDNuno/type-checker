@@ -1,7 +1,7 @@
 /* eslint-disable */
 import "./App.css";
 import React, { useState } from "react";
-import { selectedTypeContext, sidebarContext } from "./selectedTypeContext";
+import { SelectedTypeContext, SidebarContext } from "./Contexts";
 import Sidebar from "./components/sidebar";
 import Main from "./components/main";
 
@@ -11,12 +11,12 @@ const App = () => {
 
   return (
     <div className="app">
-      <selectedTypeContext.Provider value={{ selectedType, setSelectedType }}>
-        <sidebarContext.Provider value={{ menuClass, setMenuClass }}>
+      <SelectedTypeContext.Provider value={{ selectedType, setSelectedType }}>
+        <SidebarContext.Provider value={{ menuClass, setMenuClass }}>
           <Main />
           <Sidebar />
-        </sidebarContext.Provider>
-      </selectedTypeContext.Provider>
+        </SidebarContext.Provider>
+      </SelectedTypeContext.Provider>
     </div>
   );
 };
