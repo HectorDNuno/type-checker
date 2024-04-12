@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./main.css";
 import Navbar from "./navbar";
 import Content from "./content";
+import { sidebarContext } from "../selectedTypeContext";
 
 const Main = () => {
+  const { menuClass } = useContext(sidebarContext);
   return (
-    <div className="main">
+    <div className={`main ${menuClass === "hidden" ? "full-width" : ""}`}>
       <Navbar />
       <Content />
     </div>

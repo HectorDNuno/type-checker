@@ -4,5 +4,17 @@
   min-height: 100vh;
   width: calc(100% - 240px);
   left: 240px;
-  transition: all 0.5s ease;
+}
+
+
+.full-width {
+  width: 100%;
+  left: 0;
+}
+
+@media screen and (max-width: 960px) {
+  .main {
+    width: calc(100% - 100px);
+    left: 100px;
+  }
 }

@@ -12,7 +12,6 @@ export const wordsToFilter = [
   "starter",
   "gmax",
   "eternamax",
-  "therian",
   "low-key",
   "eternal",
   "original",

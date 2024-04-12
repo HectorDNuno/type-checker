@@ -1,15 +1,20 @@
 /* eslint-disable */
 import React, { useContext } from "react";
-import { selectedTypeContext } from "../selectedTypeContext";
+import { selectedTypeContext, sidebarContext } from "../selectedTypeContext";
 import "./navbar.css";
 
 const Navbar = () => {
   const { selectedType } = useContext(selectedTypeContext);
+  const { setMenuClass, menuClass } = useContext(sidebarContext);
+
+  const toggleSidebar = () => {
+    setMenuClass(menuClass === "hidden" ? "" : "hidden");
+  };
 
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${menuClass === "hidden" ? "full-width" : ""}`}>
       <div className="navbar-item">
-        <i className="fa-solid fa-bars"></i>
+        <i onClick={toggleSidebar} className="fa-solid fa-bars"></i>
       </div>
 
       <div className="navbar-item type-name" style={{ background: selectedType.color }}>

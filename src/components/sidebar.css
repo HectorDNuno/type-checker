@@ -4,7 +4,8 @@
   height: 100%;
   width: 240px;
   background: #1a1919;
-  transition: all 0.5s ease;
+  transition: transform 0.3s ease;
+  transform: translateX(0);
 }
 
 .sidebar .logo-details {
@@ -53,7 +54,6 @@
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  transition: all 0.4s ease;
 }
 
 .sidebar .sidebar-links li a:hover {
@@ -66,4 +66,31 @@
   font-size: 15px;
   font-weight: 400;
   white-space: nowrap;
+}
+
+.hidden {
+  transform: translateX(-100%);
+}
+
+.close-icon {
+  display: none;
+}
+
+@media screen and (max-width: 960px) {
+  .sidebar {
+    width: 100%;
+    z-index: 20;
+  }
+
+  .close-icon {
+    display: block;
+  }
+
+  .sidebar .logo-details {
+    justify-content: space-between;
+  }
+
+  .sidebar .sidebar-links {
+    padding-bottom: 100px;
+  }
 }

@@ -16,12 +16,13 @@
 
 .overview-boxes .box {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   width: calc(100% / 4 - 15px);
   background: #fff;
-  padding: 15px 14px;
+  padding: 15px 0px;
   border-radius: 12px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   text-decoration: none;
@@ -60,10 +61,10 @@
   margin: 26px 0;
 }
 
-/* type matchups */
+/* --------------------type matchups-------------------- */
 
 .content .pokedex-container .type-matchups {
-  width: 50%;
+  width: 40%;
   background: #fff;
   padding: 20px 30px;
   margin: 0 0 0 20px;
@@ -108,20 +109,26 @@
   font-size: 17px;
 }
 
-.type-matchups .type-details li a {
+.type-matchups .type-details a {
   color: #fff;
   text-decoration: none;
 }
 
-/* all pokemon */
+/* --------------------all pokemon-------------------- */
 
 .content .pokedex-container .all-pokemon {
-  width: 50%;
+  width: 60%;
   background: #fff;
   padding: 20px 30px;
   margin: 0 20px;
   border-radius: 12px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.content .pokedex-container .all-pokemon .switches {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
 }
 
 .content .pokedex-container .all-pokemon ul {
@@ -145,7 +152,7 @@
   color: #333;
 }
 
-.pokedex-container .all-pokemon li a .pokemon-list {
+.pokedex-container .all-pokemon li a .pokemon-list-item {
   width: 60%;
 }
 
@@ -158,64 +165,141 @@
   background: #c1c1c1;
 }
 
-.pokedex-container .all-pokemon li .name,
-.type {
-  font-size: 17px;
+.pokedex-container .all-pokemon li .name {
   font-weight: 400;
-  margin-left: 1rem;
+  margin-left: .5rem;
 }
 
-.pokedex-container .all-pokemon li .dex-details {
+.pokedex-container .all-pokemon li .type {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.pokedex-container .all-pokemon li .dex-details .type {
+.pokedex-container .all-pokemon li .type span {
   padding: .5rem;
-  width: 6rem;
+  min-width: 6em;
   border-radius: .5rem;
   color: #fff;
   font-weight: 600;
   text-align: center;
+  margin-right: .5rem;
 }
+
+/* --------------------switch-------------------- */
+.switch {
+  --button-width: 3.5em;
+  --button-height: 1.5em;
+  --toggle-diameter: 1em;
+  --button-toggle-offset: calc((var(--button-height) - var(--toggle-diameter)) / 2);
+  --toggle-shadow-offset: 10px;
+  --toggle-wider: 3em;
+  --color-grey: #cccccc;
+  --color-blue: #4296f4;
+  display: flex;
+}
+
+.pokedex-container .all-pokemon div .switch div {
+  margin-right: .5rem;
+}
+
+.slider {
+  display: inline-block;
+  width: var(--button-width);
+  height: var(--button-height);
+  background-color: var(--color-grey);
+  border-radius: calc(var(--button-height) / 2);
+  position: relative;
+  transition: 0.3s all ease-in-out;
+  cursor: pointer;
+}
+
+.slider::after {
+  content: "";
+  display: inline-block;
+  width: var(--toggle-diameter);
+  height: var(--toggle-diameter);
+  background-color: #fff;
+  border-radius: calc(var(--toggle-diameter) / 2);
+  position: absolute;
+  top: var(--button-toggle-offset);
+  transform: translateX(var(--button-toggle-offset));
+  box-shadow: var(--toggle-shadow-offset) 0 calc(var(--toggle-shadow-offset) * 4) rgba(0, 0, 0, 0.1);
+  transition: 0.3s all ease-in-out;
+}
+
+.switch input[type="checkbox"]:checked+.slider {
+  background-color: var(--color-blue);
+}
+
+.switch input[type="checkbox"]:checked+.slider::after {
+  transform: translateX(calc(var(--button-width) - var(--toggle-diameter) - var(--button-toggle-offset)));
+  box-shadow: calc(var(--toggle-shadow-offset) * -1) 0 calc(var(--toggle-shadow-offset) * 4) rgba(0, 0, 0, 0.1);
+}
+
+.switch input[type="checkbox"] {
+  display: none;
+}
+
+.switch input[type="checkbox"]:active+.slider::after {
+  width: var(--toggle-wider);
+}
+
+.switch input[type="checkbox"]:checked:active+.slider::after {
+  transform: translateX(calc(var(--button-width) - var(--toggle-wider) - var(--button-toggle-offset)));
+}
+
 
 @media screen and (max-width: 960px) {
   .content .pokedex-container {
     flex-direction: column;
   }
 
-  .content .pokedex-container .type-matchups {
-    width: 95%;
+  .content .pokedex-container .type-matchups,
+  .content .pokedex-container .all-pokemon {
+    width: 90%;
     margin: 0 20px 20px 20px;
   }
 
-  .content .pokedex-container .all-pokemon {
-    width: 95%;
-    margin: 0 20px 0px 20px;
+  .content .pokedex-container .all-pokemon .switches {
+    margin-bottom: .5rem;
   }
 
+  .content .pokedex-container .all-pokemon .switches .title {
+    grid-column: 1/ span 3;
+  }
+
+  .content .pokedex-container .all-pokemon .switches .switch {
+    margin-right: 1rem;
+  }
 
   .pokedex-container .all-pokemon ul {
     padding: 0;
   }
 
-  .pokedex-container .all-pokemon .min-height {
-    min-height: 7.5rem;
+  .pokedex-container .all-pokemon li a img {
+    height: 40px;
+    width: 40px;
   }
 
-  .pokedex-container .all-pokemon li .dex-details {
-    flex-direction: column;
+  .pokedex-container .all-pokemon .pokemon-list {
+    font-size: .6em;
   }
 
-  .pokedex-container .all-pokemon li .dex-details .type {
-    margin-top: .5rem;
+  .pokedex-container .all-pokemon li .type span {
+    margin-right: .2em;
   }
 
   .content .pokedex-container .moves {
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
   }
 
-  .content .overview-boxes .box {
-    width: calc(100% / 2 - 15px);
-    margin-bottom: 15px;
+  .content .overview-boxes {
+    /* flex-direction: column; */
+  }
+
+  .overview-boxes .box {
+    width: 100%;
+    margin-top: 1rem;
   }
 }
