@@ -29,7 +29,7 @@ const Sidebar = () => {
       <div className="logo-details">
         <i className="fa-solid fa-circle-check"></i>
         <span className="logo_name">Type Checkr</span>
-        <i onClick={closeSidebar} class="fa-solid fa-xmark close-icon"></i>
+        <i onClick={closeSidebar} className="fa-solid fa-xmark close-icon"></i>
       </div>
 
       <ul className="sidebar-links">
