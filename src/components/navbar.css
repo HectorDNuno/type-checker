@@ -10,7 +10,7 @@
   background: #fff;
   padding: 0 20px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-  /* transition: width 0.3s ease-in-out; */
+  transition: all 0.3s ease;
 }
 
 .full-width {
