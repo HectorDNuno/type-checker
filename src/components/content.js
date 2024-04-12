@@ -17,7 +17,6 @@ const Content = () => {
   const [shinySprites, setShinySprites] = useState(false);
 
   const { selectedType } = useContext(selectedTypeContext);
-  const { menuClass } = useContext(sidebarContext);
 
   const fetchMovesData = async (moves) => {
     const movesUrls = moves.map((move) => move.url);
