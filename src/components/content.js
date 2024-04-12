@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./content.css";
-import { selectedTypeContext, sidebarContext } from "../selectedTypeContext";
+import { selectedTypeContext } from "../selectedTypeContext";
 import { Types } from "../typesData";
 import axios from "axios";
 import { wordsToFilter } from "../wordsToFilter";
