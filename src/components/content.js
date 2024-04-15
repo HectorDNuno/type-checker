@@ -4,6 +4,7 @@ import { SelectedTypeContext } from "../Contexts";
 import { Types } from "../typesData";
 import axios from "axios";
 import { wordsToFilter } from "../wordsToFilter";
+import Modal from "./modal";
 
 const Content = () => {
   const [typeData, setTypeData] = useState({
@@ -15,6 +16,10 @@ const Content = () => {
 
   const [alphabeticalOrder, setAlphabeticalOrder] = useState(false);
   const [shinySprites, setShinySprites] = useState(false);
+  const [openModal, setOpenModal] = useState({
+    isOpen: false,
+    content: "",
+  });
 
   const { selectedType } = useContext(SelectedTypeContext);
 
@@ -243,11 +248,19 @@ const Content = () => {
           <ul>
             {pokemonCopy.map((pokemon) => (
               <li className="pokemon-list">
-                <a href="#" className="pokemon-list-item">
+                <div
+                  onClick={() => {
+                    setOpenModal({
+                      isOpen: true,
+                      content: pokemon.name,
+                    });
+                  }}
+                  className="pokemon-list-item"
+                >
                   {renderPokemonImage(pokemon)}
                   <span> #{pokemon.number} </span>
                   <span className="name"> {pokemon.name} </span>
-                </a>
+                </div>
 
                 <div className="type">
                   <span style={{ backgroundColor: setBackgroundColor(pokemon.types[0]) }}>{pokemon.types[0]}</span>
@@ -268,9 +281,9 @@ const Content = () => {
           <ul>
             {physicalMoves.map((move) => (
               <li>
-                <a href="#">
+                <p>
                   <span className="name"> {move.name} </span>
-                </a>
+                </p>
               </li>
             ))}
           </ul>
@@ -281,9 +294,9 @@ const Content = () => {
           <ul>
             {specialMoves.map((move) => (
               <li>
-                <a href="#">
+                <p>
                   <span className="name"> {move.name} </span>
-                </a>
+                </p>
               </li>
             ))}
           </ul>
@@ -294,14 +307,16 @@ const Content = () => {
           <ul>
             {statusMoves.map((move) => (
               <li>
-                <a href="#">
+                <p>
                   <span className="name"> {move.name} </span>
-                </a>
+                </p>
               </li>
             ))}
           </ul>
         </div>
       </div>
+
+      <Modal trigger={openModal.isOpen} setTrigger={setOpenModal} content={openModal.content} />
     </div>
   );
 };
