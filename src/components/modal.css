@@ -15,12 +15,12 @@
   padding: 2rem;
   width: 100%;
   max-width: 640px;
+  max-height: 550px;
   background-color: #fff;
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  overflow: auto;
 }
 
 button {
@@ -31,10 +31,11 @@ button {
   cursor: pointer;
 }
 
-img {
-  height: 100px;
-  width: 100px;
+.modal-inner img {
+  height: 200px;
+  width: 200px;
   object-fit: cover;
+  margin: 0 auto;
 }
 
 .modal-inner .close-btn {
@@ -60,6 +61,19 @@ img {
   font-weight: 600;
   text-align: center;
   margin-right: .5rem;
+}
+
+.modal-inner .abilities {
+  margin-top: 1rem;
+}
+
+.modal-inner .abilities .ability-one {
+  margin-bottom: 1rem;
+}
+
+.modal-inner .abilities .ability-name {
+  font-weight: bold;
+  text-transform: capitalize;
 }
 
 @media screen and (max-width: 960px) {
