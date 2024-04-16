@@ -1,0 +1,39 @@
+.barchart {
+  margin-top: 1rem;
+}
+
+.barchart .stat-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.stat-name {
+  width: 4rem;
+}
+
+.stat-amount {
+  font-weight: bold;
+  width: 2rem;
+}
+
+.stat-container .progress-container {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  flex-grow: .5;
+}
+
+.progress {
+  height: 10px;
+  background-color: #f0f0f0;
+  position: relative;
+  width: 100%;
+}
+
+.progress span {
+  background-color: #222224;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+}
