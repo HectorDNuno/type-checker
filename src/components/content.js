@@ -16,7 +16,7 @@ const Content = () => {
 
   const [alphabeticalOrder, setAlphabeticalOrder] = useState(false);
   const [shinySprites, setShinySprites] = useState(false);
-  const [openModal, setOpenModal] = useState({
+  const [isModalOpen, setIsModalOpen] = useState({
     isOpen: false,
     content: "",
   });
@@ -125,6 +125,24 @@ const Content = () => {
   } else {
     pokemonCopy.sort((a, b) => a.number - b.number);
   }
+
+  const openModal = (pokemon) => {
+    setIsModalOpen({
+      isOpen: true,
+      content: pokemon.name,
+    });
+
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeModal = () => {
+    setIsModalOpen({
+      isOpen: false,
+      content: "",
+    });
+
+    document.body.style.overflow = "auto";
+  };
 
   return (
     <div className="content">
@@ -250,10 +268,7 @@ const Content = () => {
               <li className="pokemon-list">
                 <div
                   onClick={() => {
-                    setOpenModal({
-                      isOpen: true,
-                      content: pokemon.name,
-                    });
+                    openModal(pokemon);
                   }}
                   className="pokemon-list-item"
                 >
@@ -316,7 +331,7 @@ const Content = () => {
         </div>
       </div>
 
-      {openModal.isOpen && <Modal setOpenModal={setOpenModal} content={openModal.content} shinySprite={shinySprites} />}
+      {isModalOpen.isOpen && <Modal closeModal={closeModal} content={isModalOpen.content} shinySprite={shinySprites} />}
     </div>
   );
 };
