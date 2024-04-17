@@ -4,7 +4,7 @@ import axios from "axios";
 import { Types } from "../typesData";
 import Barchart from "./barchart";
 
-const Modal = ({ trigger, setTrigger, content, shinySprite }) => {
+const Modal = ({ setOpenModal, content, shinySprite }) => {
   const [pokemonData, setPokemonData] = useState({});
   const [pokedexEntry, setPokedexEntry] = useState("");
   const [abilityEntries, setAbilityEntries] = useState({
@@ -108,7 +108,7 @@ const Modal = ({ trigger, setTrigger, content, shinySprite }) => {
     ? pokemonData.sprites?.other.home.front_shiny
     : pokemonData.sprites?.other.home.front_default;
 
-  return trigger ? (
+  return (
     <div className="modal">
       <div className="modal-inner">
         {pokemonData.sprites ? <img src={imageUrl} alt={`${pokemonData.name} sprite`} /> : <img alt="" />}
@@ -150,25 +150,23 @@ const Modal = ({ trigger, setTrigger, content, shinySprite }) => {
                 <div> {firstAbility?.flavor_text} </div>
               </div>
 
-              <div>
-                {pokemonData.abilities[1] && (
-                  <div>
-                    <div className="ability-name"> {abilityEntries.abilityTwo.name} (hidden ability) </div>
-                    <div> {secondAbility?.flavor_text} </div>
+              {abilityEntries.abilityTwo.name && abilityEntries.abilityTwo.name !== abilityEntries.abilityOne.name && (
+                <div>
+                  <div className="ability-name">
+                    {abilityEntries.abilityTwo.name} <span> (hidden ability) </span>
                   </div>
-                )}
-              </div>
+                  <div> {secondAbility?.flavor_text} </div>
+                </div>
+              )}
             </>
           )}
         </div>
 
-        <button onClick={() => setTrigger({ isOpen: false, content: "" })} className="close-btn">
+        <button onClick={() => setOpenModal({ isOpen: false, content: "" })} className="close-btn">
           <i className="fa-regular fa-circle-xmark fa-lg"></i>
         </button>
       </div>
     </div>
-  ) : (
-    ""
   );
 };
 
