@@ -23,7 +23,7 @@
   overflow: auto;
 }
 
-button {
+.modal-inner button {
   border: none;
   outline: none;
   background: none;
@@ -45,12 +45,9 @@ button {
   color: #ff0000;
 }
 
-.modal-inner .info {
-  margin-bottom: 1rem;
-}
-
 .modal-inner .types {
   display: flex;
+  margin-bottom: 1rem;
 }
 
 .modal-inner .type {
