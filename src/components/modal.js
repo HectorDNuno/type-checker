@@ -4,7 +4,7 @@ import axios from "axios";
 import { Types } from "../typesData";
 import Barchart from "./barchart";
 
-const Modal = ({ setOpenModal, content, shinySprite }) => {
+const Modal = ({ closeModal, content, shinySprite }) => {
   const [pokemonData, setPokemonData] = useState({});
   const [pokedexEntry, setPokedexEntry] = useState("");
   const [abilityEntries, setAbilityEntries] = useState({
@@ -111,6 +111,10 @@ const Modal = ({ setOpenModal, content, shinySprite }) => {
   return (
     <div className="modal">
       <div className="modal-inner">
+        <button onClick={closeModal} className="close-btn">
+          <i className="fa-regular fa-circle-xmark fa-lg"></i>
+        </button>
+
         {pokemonData.sprites ? <img src={imageUrl} alt={`${pokemonData.name} sprite`} /> : <img alt="" />}
 
         <div className="info">
@@ -130,10 +134,8 @@ const Modal = ({ setOpenModal, content, shinySprite }) => {
               )}
             </div>
           )}
-        </div>
 
-        <div className="pokedex-entry">
-          {pokedexEntry.flavor_text_entries && pokedexEntry.flavor_text_entries.length > 0 && entry.flavor_text}
+          <div className="pokedex-entry">{pokedexEntry.flavor_text_entries && entry.flavor_text}</div>
         </div>
 
         <div className="stats">
@@ -161,10 +163,6 @@ const Modal = ({ setOpenModal, content, shinySprite }) => {
             </>
           )}
         </div>
-
-        <button onClick={() => setOpenModal({ isOpen: false, content: "" })} className="close-btn">
-          <i className="fa-regular fa-circle-xmark fa-lg"></i>
-        </button>
       </div>
     </div>
   );
