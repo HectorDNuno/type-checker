@@ -316,12 +316,7 @@ const Content = () => {
         </div>
       </div>
 
-      <Modal
-        trigger={openModal.isOpen}
-        setTrigger={setOpenModal}
-        content={openModal.content}
-        shinySprite={shinySprites}
-      />
+      {openModal.isOpen && <Modal setOpenModal={setOpenModal} content={openModal.content} shinySprite={shinySprites} />}
     </div>
   );
 };
