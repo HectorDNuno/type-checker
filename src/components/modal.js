@@ -63,6 +63,21 @@ const Modal = ({ closeModal, content, shinySprite }) => {
     };
   }, [content, abilityEntries]);
 
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      const modalInner = document.querySelector(".modal-inner");
+      if (modalInner && !modalInner.contains(event.target)) {
+        closeModal();
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [closeModal]);
+
   const findHighestPokedexEntry = (entries) => {
     if (!entries || entries.length === 0) return null;
 
