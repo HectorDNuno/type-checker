@@ -17,14 +17,14 @@ const Barchart = ({ stats }) => {
         <h5>Stats</h5>
 
         {stats.map((stat, index) => (
-          <div key={index} class="stat-container">
-            <div class="stat-name"> {shortenedNames[stat.name]} </div>
+          <div key={index} className="stat-container">
+            <div className="stat-name"> {shortenedNames[stat.name]} </div>
 
-            <div class="stat-amount"> {stat.base_stat} </div>
+            <div className="stat-amount"> {stat.base_stat} </div>
 
-            <div class="progress-container">
-              <div class="progress">
-                <span class="bar" style={{ width: `${stat.base_stat / 2}%` }}></span>
+            <div className="progress-container">
+              <div className="progress">
+                <span className="bar" style={{ width: `${stat.base_stat / 2}%` }}></span>
               </div>
             </div>
           </div>
