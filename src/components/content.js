@@ -176,34 +176,28 @@ const Content = () => {
               <div className="topic">Defense</div>
               <div className="sub-topic">Takes 2x from</div>
               <div className="li-container">
-                {typeData.damageRelations.double_damage_from?.map((type) => (
-                  <a href="#">
-                    <li className="type" style={{ backgroundColor: setBackgroundColor(type.name) }}>
-                      <p> {type.name} </p>
-                    </li>
-                  </a>
+                {typeData.damageRelations.double_damage_from?.map((type, index) => (
+                  <li key={index} className="type" style={{ backgroundColor: setBackgroundColor(type.name) }}>
+                    <p> {type.name} </p>
+                  </li>
                 ))}
               </div>
 
               <div className="sub-topic">Takes 1/2x from</div>
               <div className="li-container">
-                {typeData.damageRelations.half_damage_from?.map((type) => (
-                  <a href="#">
-                    <li className="type" style={{ backgroundColor: setBackgroundColor(type.name) }}>
-                      <p> {type.name} </p>
-                    </li>
-                  </a>
+                {typeData.damageRelations.half_damage_from?.map((type, index) => (
+                  <li key={index} className="type" style={{ backgroundColor: setBackgroundColor(type.name) }}>
+                    <p> {type.name} </p>
+                  </li>
                 ))}
               </div>
 
               <div className="sub-topic">Takes 0x from</div>
               <div className="li-container">
-                {typeData.damageRelations.no_damage_from?.map((type) => (
-                  <a href="#">
-                    <li className="type" style={{ backgroundColor: setBackgroundColor(type.name) }}>
-                      <p> {type.name} </p>
-                    </li>
-                  </a>
+                {typeData.damageRelations.no_damage_from?.map((type, index) => (
+                  <li key={index} className="type" style={{ backgroundColor: setBackgroundColor(type.name) }}>
+                    <p> {type.name} </p>
+                  </li>
                 ))}
               </div>
             </ul>
@@ -212,34 +206,28 @@ const Content = () => {
               <div className="topic">Offense</div>
               <div className="sub-topic">Deals 2x to</div>
               <div className="li-container">
-                {typeData.damageRelations.double_damage_to?.map((type) => (
-                  <a href="#">
-                    <li className="type" style={{ backgroundColor: setBackgroundColor(type.name) }}>
-                      <p> {type.name} </p>
-                    </li>
-                  </a>
+                {typeData.damageRelations.double_damage_to?.map((type, index) => (
+                  <li key={index} className="type" style={{ backgroundColor: setBackgroundColor(type.name) }}>
+                    <p> {type.name} </p>
+                  </li>
                 ))}
               </div>
 
               <div className="sub-topic">Deals 1/2x to</div>
               <div className="li-container">
-                {typeData.damageRelations.half_damage_to?.map((type) => (
-                  <a href="#">
-                    <li className="type" style={{ backgroundColor: setBackgroundColor(type.name) }}>
-                      <p> {type.name} </p>
-                    </li>
-                  </a>
+                {typeData.damageRelations.half_damage_to?.map((type, index) => (
+                  <li key={index} className="type" style={{ backgroundColor: setBackgroundColor(type.name) }}>
+                    <p> {type.name} </p>
+                  </li>
                 ))}
               </div>
 
               <div className="sub-topic">Deals 0x to</div>
               <div className="li-container">
-                {typeData.damageRelations.no_damage_to?.map((type) => (
-                  <a href="#">
-                    <li className="type" style={{ backgroundColor: setBackgroundColor(type.name) }}>
-                      <p> {type.name} </p>
-                    </li>
-                  </a>
+                {typeData.damageRelations.no_damage_to?.map((type, index) => (
+                  <li key={index} className="type" style={{ backgroundColor: setBackgroundColor(type.name) }}>
+                    <p> {type.name} </p>
+                  </li>
                 ))}
               </div>
             </ul>
@@ -264,8 +252,8 @@ const Content = () => {
           </div>
 
           <ul>
-            {pokemonCopy.map((pokemon) => (
-              <li className="pokemon-list">
+            {pokemonCopy.map((pokemon, index) => (
+              <li key={index} className="pokemon-list">
                 <div
                   onClick={() => {
                     openModal(pokemon);
@@ -294,8 +282,8 @@ const Content = () => {
         <div className="all-pokemon box moves" id="physical">
           <div className="title">Physical Moves</div>
           <ul>
-            {physicalMoves.map((move) => (
-              <li>
+            {physicalMoves.map((move, index) => (
+              <li key={index}>
                 <p>
                   <span className="name"> {move.name} </span>
                 </p>
@@ -307,8 +295,8 @@ const Content = () => {
         <div className="all-pokemon box moves" id="special">
           <div className="title">Special Moves</div>
           <ul>
-            {specialMoves.map((move) => (
-              <li>
+            {specialMoves.map((move, index) => (
+              <li key={index}>
                 <p>
                   <span className="name"> {move.name} </span>
                 </p>
@@ -320,8 +308,8 @@ const Content = () => {
         <div className="all-pokemon box moves" id="status">
           <div className="title">Status Moves</div>
           <ul>
-            {statusMoves.map((move) => (
-              <li>
+            {statusMoves.map((move, index) => (
+              <li key={index}>
                 <p>
                   <span className="name"> {move.name} </span>
                 </p>
