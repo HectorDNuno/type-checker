@@ -44,6 +44,10 @@
   color: #ff0000;
 }
 
+.modal-inner .info h4 {
+  text-transform: capitalize;
+}
+
 .modal-inner .types {
   display: flex;
   margin-bottom: 1rem;
