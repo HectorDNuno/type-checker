@@ -92,6 +92,8 @@
   border-radius: .5rem;
   font-weight: 600;
   text-align: center;
+  color: #fff;
+  text-decoration: none;
 }
 
 .type-matchups .type-details .details .li-container {
@@ -106,11 +108,6 @@
 
 .type-matchups .type-details .sub-topic {
   font-size: 17px;
-}
-
-.type-matchups .type-details a {
-  color: #fff;
-  text-decoration: none;
 }
 
 /* --------------------all pokemon-------------------- */
