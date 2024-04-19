@@ -42,7 +42,7 @@ const Modal = ({ closeModal, content, shinySprite }) => {
 
     const fetchSpeciesData = async () => {
       try {
-        const response = await axios.get(pokemonData.species?.url);
+        const response = await axios.get(pokemonData.species.url);
 
         if (!isMounted) {
           return;
@@ -68,8 +68,8 @@ const Modal = ({ closeModal, content, shinySprite }) => {
     const fetchAbilityData = async () => {
       try {
         if (pokemonData.abilities && pokemonData.abilities[1]) {
-          const responseForAbilityOne = await axios.get(pokemonData?.abilities[0].ability.url);
-          const responseForAbilityTwo = await axios.get(pokemonData?.abilities[1].ability.url);
+          const responseForAbilityOne = await axios.get(pokemonData.abilities[0].ability.url);
+          const responseForAbilityTwo = await axios.get(pokemonData.abilities[1].ability.url);
 
           const dataForAbilityOne = responseForAbilityOne.data;
           const dataForAbilityTwo = responseForAbilityTwo.data;
@@ -92,7 +92,7 @@ const Modal = ({ closeModal, content, shinySprite }) => {
             },
           });
         } else {
-          const responseForAbilityOne = await axios.get(pokemonData?.abilities[0].ability.url);
+          const responseForAbilityOne = await axios.get(pokemonData.abilities[0].ability.url);
 
           if (!isMounted) {
             return;
@@ -222,7 +222,7 @@ const Modal = ({ closeModal, content, shinySprite }) => {
                 <div className="ability-name" style={{ color: setBackgroundColor(pokemonData.types[0].type.name) }}>
                   {abilityEntries.abilityOne.name}
                 </div>
-                <div> {abilityEntries.abilityOne?.flavorText} </div>
+                <div> {abilityEntries.abilityOne.flavorText} </div>
               </div>
 
               {abilityEntries.abilityTwo.name && abilityEntries.abilityTwo.name !== abilityEntries.abilityOne.name && (
@@ -230,7 +230,7 @@ const Modal = ({ closeModal, content, shinySprite }) => {
                   <div className="ability-name" style={{ color: setBackgroundColor(pokemonData.types[0].type.name) }}>
                     {abilityEntries.abilityTwo.name} <span> (hidden ability) </span>
                   </div>
-                  <div> {abilityEntries.abilityTwo?.flavorText} </div>
+                  <div> {abilityEntries.abilityTwo.flavorText} </div>
                 </div>
               )}
             </>
@@ -240,7 +240,7 @@ const Modal = ({ closeModal, content, shinySprite }) => {
         <div className="characteristics">
           <h5>Characteristics</h5>
 
-          {pokemonData.weight && (
+          {pokemonData.weight && speciesData.base_happiness && (
             <>
               <div style={{ color: setBackgroundColor(pokemonData.types[0].type.name) }}>Weight</div>
               <div> {(pokemonData.weight / 4.536).toFixed(1)} lbs</div>
@@ -253,11 +253,11 @@ const Modal = ({ closeModal, content, shinySprite }) => {
               <div style={{ color: setBackgroundColor(pokemonData.types[0].type.name) }}>Catch Rate</div>
               <div> {speciesData.capture_rate}</div>
               <div style={{ color: setBackgroundColor(pokemonData.types[0].type.name) }}>Growth Rate</div>
-              <div> {speciesData.growth_rate?.name}</div>
+              <div> {speciesData.growth_rate.name}</div>
               <div style={{ color: setBackgroundColor(pokemonData.types[0].type.name) }}>Hatch Time</div>
               <div> {speciesData.hatch_counter}</div>
               <div style={{ color: setBackgroundColor(pokemonData.types[0].type.name) }}>First Appeared</div>
-              <div> {speciesData.generation?.name}</div>
+              <div> {speciesData.generation.name}</div>
             </>
           )}
         </div>
