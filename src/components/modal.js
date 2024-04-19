@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import "./modal.css";
 import axios from "axios";
 import { Types } from "../typesData";
@@ -13,6 +13,8 @@ const Modal = ({ closeModal, content, shinySprite }) => {
       abilityTwo: {},
     },
   });
+
+  const modalRef = useRef(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -132,8 +134,7 @@ const Modal = ({ closeModal, content, shinySprite }) => {
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
-      const modalInner = document.querySelector(".modal-inner");
-      if (modalInner && !modalInner.contains(event.target)) {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
         closeModal();
       }
     };
@@ -216,7 +217,7 @@ const Modal = ({ closeModal, content, shinySprite }) => {
 
   return (
     <div className="modal">
-      <div className="modal-inner">
+      <div ref={modalRef} className="modal-inner">
         <button onClick={closeModal} className="close-btn">
           <i className="fa-regular fa-circle-xmark fa-lg"></i>
         </button>
