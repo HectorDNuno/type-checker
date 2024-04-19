@@ -6,27 +6,11 @@ import Barchart from "./barchart";
 
 const Modal = ({ closeModal, content, shinySprite }) => {
   const [pokemonData, setPokemonData] = useState({});
-  const [pokedexEntry, setPokedexEntry] = useState("");
+  const [speciesData, setSpeciesData] = useState({});
   const [abilityEntries, setAbilityEntries] = useState({
     abilityOne: {},
     abilityTwo: {},
   });
-
-  const setBackgroundColor = (typeFromList) => {
-    const typeColor = Types.find((type) => type.title === typeFromList)?.color;
-    return typeColor;
-  };
-
-  const fetchPokedexEntry = async (url) => {
-    try {
-      const response = await axios.get(url);
-
-      const { data } = response;
-      return data;
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
     let isMounted = true;
@@ -41,17 +25,7 @@ const Modal = ({ closeModal, content, shinySprite }) => {
 
         const { data } = response;
 
-        const pokedexData = await fetchPokedexEntry(data.species.url);
-        const abilityOneData = await fetchPokedexEntry(data.abilities[0].ability.url);
-
         setPokemonData(data);
-        setPokedexEntry(pokedexData);
-        setAbilityEntries({ ...abilityEntries, abilityOne: abilityOneData });
-
-        if (data.abilities.length > 0) {
-          const abilityTwoData = await fetchPokedexEntry(data.abilities[1].ability.url);
-          setAbilityEntries({ ...abilityEntries, abilityTwo: abilityTwoData });
-        }
       } catch (error) {
         console.log(error);
       }
@@ -61,7 +35,68 @@ const Modal = ({ closeModal, content, shinySprite }) => {
     return () => {
       isMounted = false;
     };
-  }, [content, abilityEntries]);
+  }, [content]);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchSpeciesData = async () => {
+      try {
+        const response = await axios.get(pokemonData.species?.url);
+
+        if (!isMounted) {
+          return;
+        }
+
+        const { data } = response;
+
+        setSpeciesData(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchSpeciesData();
+    return () => {
+      isMounted = false;
+    };
+  }, [pokemonData.species]);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchAbilityData = async () => {
+      try {
+        if (pokemonData.abilities && pokemonData.abilities[1]) {
+          const responseForAbilityOne = await axios.get(pokemonData?.abilities[0].ability.url);
+          const responseForAbilityTwo = await axios.get(pokemonData?.abilities[1].ability.url);
+
+          if (!isMounted) {
+            return;
+          }
+
+          setAbilityEntries({
+            ...abilityEntries,
+            abilityOne: responseForAbilityOne.data,
+            abilityTwo: responseForAbilityTwo.data,
+          });
+        } else {
+          const responseForAbilityOne = await axios.get(pokemonData?.abilities[0].ability.url);
+
+          if (!isMounted) {
+            return;
+          }
+
+          setAbilityEntries({ ...abilityEntries, abilityOne: responseForAbilityOne.data });
+        }
+      } catch (error) {}
+    };
+
+    fetchAbilityData();
+    return () => {
+      isMounted = false;
+    };
+  }, [abilityEntries, pokemonData.abilities]);
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -78,7 +113,12 @@ const Modal = ({ closeModal, content, shinySprite }) => {
     };
   }, [closeModal]);
 
-  const findHighestPokedexEntry = (entries) => {
+  const setBackgroundColor = (typeFromList) => {
+    const typeColor = Types.find((type) => type.title === typeFromList)?.color;
+    return typeColor;
+  };
+
+  const findRecentSpeciesData = (entries) => {
     if (!entries || entries.length === 0) return null;
 
     const filteredByLanguage = entries.filter((entry) => entry.language.name === "en");
@@ -113,8 +153,8 @@ const Modal = ({ closeModal, content, shinySprite }) => {
     );
   };
 
-  const classification = pokedexEntry.genera?.find((entry) => entry.language.name === "en");
-  const entry = findHighestPokedexEntry(pokedexEntry?.flavor_text_entries);
+  const classification = speciesData.genera?.find((entry) => entry.language.name === "en");
+  const entry = findRecentSpeciesData(speciesData?.flavor_text_entries);
   const stats = reorganizeStats(pokemonData?.stats);
   const firstAbility = findHighestAbilityEntry(abilityEntries.abilityOne?.flavor_text_entries);
   const secondAbility = findHighestAbilityEntry(abilityEntries.abilityTwo?.flavor_text_entries);
@@ -135,7 +175,7 @@ const Modal = ({ closeModal, content, shinySprite }) => {
         <div className="info">
           <div> #{pokemonData.id} </div>
           <h4> {pokemonData.name} </h4>
-          <div> {pokedexEntry.genera && pokedexEntry.genera.length > 0 && classification.genus} </div>
+          <div> {speciesData.genera && speciesData.genera.length > 0 && classification.genus} </div>
 
           {pokemonData.types && (
             <div className="types">
@@ -150,7 +190,7 @@ const Modal = ({ closeModal, content, shinySprite }) => {
             </div>
           )}
 
-          <div className="pokedex-entry">{pokedexEntry.flavor_text_entries && entry.flavor_text}</div>
+          <div className="pokedex-entry">{speciesData.flavor_text_entries && entry.flavor_text}</div>
         </div>
 
         <div className="stats">
@@ -163,18 +203,45 @@ const Modal = ({ closeModal, content, shinySprite }) => {
           {pokemonData.abilities && (
             <>
               <div className="ability-one">
-                <div className="ability-name"> {abilityEntries.abilityOne.name} </div>
+                <div className="ability-name" style={{ color: setBackgroundColor(pokemonData.types[0].type.name) }}>
+                  {abilityEntries.abilityOne.name}
+                </div>
                 <div> {firstAbility?.flavor_text} </div>
               </div>
 
               {abilityEntries.abilityTwo.name && abilityEntries.abilityTwo.name !== abilityEntries.abilityOne.name && (
                 <div>
-                  <div className="ability-name">
+                  <div className="ability-name" style={{ color: setBackgroundColor(pokemonData.types[0].type.name) }}>
                     {abilityEntries.abilityTwo.name} <span> (hidden ability) </span>
                   </div>
                   <div> {secondAbility?.flavor_text} </div>
                 </div>
               )}
+            </>
+          )}
+        </div>
+
+        <div>
+          <h5>Characteristics</h5>
+
+          {pokemonData.weight && (
+            <>
+              <div style={{ color: setBackgroundColor(pokemonData.types[0].type.name) }}>Weight</div>
+              <div> {(pokemonData.weight / 4.536).toFixed(1)} lbs</div>
+              <div style={{ color: setBackgroundColor(pokemonData.types[0].type.name) }}>Height</div>
+              <div> {(pokemonData.height / 3.048).toFixed(1)} lbs</div>
+              <div style={{ color: setBackgroundColor(pokemonData.types[0].type.name) }}>Base Experience</div>
+              <div> {pokemonData.base_experience}</div>
+              <div style={{ color: setBackgroundColor(pokemonData.types[0].type.name) }}>Base Happiness</div>
+              <div> {speciesData.base_happiness}</div>
+              <div style={{ color: setBackgroundColor(pokemonData.types[0].type.name) }}>Catch Rate</div>
+              <div> {speciesData.capture_rate}</div>
+              <div style={{ color: setBackgroundColor(pokemonData.types[0].type.name) }}>Growth Rate</div>
+              <div> {speciesData.growth_rate?.name}</div>
+              <div style={{ color: setBackgroundColor(pokemonData.types[0].type.name) }}>Hatch Time</div>
+              <div> {speciesData.hatch_counter}</div>
+              <div style={{ color: setBackgroundColor(pokemonData.types[0].type.name) }}>First Appeared</div>
+              <div> {speciesData.generation?.name}</div>
             </>
           )}
         </div>
