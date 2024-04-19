@@ -5,11 +5,13 @@ import { Types } from "../typesData";
 import Barchart from "./barchart";
 
 const Modal = ({ closeModal, content, shinySprite }) => {
-  const [pokemonData, setPokemonData] = useState({});
-  const [speciesData, setSpeciesData] = useState({});
-  const [abilityEntries, setAbilityEntries] = useState({
-    abilityOne: {},
-    abilityTwo: {},
+  const [pokemonInfo, setPokemonInfo] = useState({
+    pokedexData: {},
+    speciesData: {},
+    abilityEntries: {
+      abilityOne: {},
+      abilityTwo: {},
+    },
   });
 
   useEffect(() => {
@@ -25,7 +27,10 @@ const Modal = ({ closeModal, content, shinySprite }) => {
 
         const { data } = response;
 
-        setPokemonData(data);
+        setPokemonInfo((prevInfo) => ({
+          ...prevInfo,
+          pokedexData: data,
+        }));
       } catch (error) {
         console.log(error);
       }
@@ -42,7 +47,9 @@ const Modal = ({ closeModal, content, shinySprite }) => {
 
     const fetchSpeciesData = async () => {
       try {
-        const response = await axios.get(pokemonData.species.url);
+        const { pokedexData } = pokemonInfo;
+
+        const response = await axios.get(pokedexData.species.url);
 
         if (!isMounted) {
           return;
@@ -50,7 +57,10 @@ const Modal = ({ closeModal, content, shinySprite }) => {
 
         const { data } = response;
 
-        setSpeciesData(data);
+        setPokemonInfo((prevInfo) => ({
+          ...prevInfo,
+          speciesData: data,
+        }));
       } catch (error) {
         console.log(error);
       }
@@ -60,61 +70,65 @@ const Modal = ({ closeModal, content, shinySprite }) => {
     return () => {
       isMounted = false;
     };
-  }, [pokemonData.species]);
+  }, [pokemonInfo]);
 
   useEffect(() => {
     let isMounted = true;
 
     const fetchAbilityData = async () => {
       try {
-        if (pokemonData.abilities && pokemonData.abilities[1]) {
-          const responseForAbilityOne = await axios.get(pokemonData.abilities[0].ability.url);
-          const responseForAbilityTwo = await axios.get(pokemonData.abilities[1].ability.url);
+        const { pokedexData } = pokemonInfo;
 
-          const dataForAbilityOne = responseForAbilityOne.data;
-          const dataForAbilityTwo = responseForAbilityTwo.data;
+        if (!pokedexData.abilities) return;
 
-          const flavorTextOne = findHighestAbilityEntry(dataForAbilityOne.flavor_text_entries);
-          const flavorTextTwo = findHighestAbilityEntry(dataForAbilityTwo.flavor_text_entries);
+        const fetchAbility = async (abilityIndex) => {
+          const response = await axios.get(pokedexData.abilities[abilityIndex].ability.url);
+          return response.data;
+        };
 
-          if (!isMounted) {
-            return;
-          }
+        const [abilityOneData, abilityTwoData] = await Promise.all([
+          fetchAbility(0),
+          pokedexData.abilities[1] ? fetchAbility(1) : null,
+        ]);
 
-          setAbilityEntries({
-            abilityOne: {
-              name: dataForAbilityOne.name,
-              flavorText: flavorTextOne.flavor_text,
-            },
-            abilityTwo: {
-              name: dataForAbilityTwo.name,
-              flavorText: flavorTextTwo.flavor_text,
-            },
-          });
-        } else {
-          const responseForAbilityOne = await axios.get(pokemonData.abilities[0].ability.url);
+        const flavorTextOne = findHighestAbilityEntry(abilityOneData.flavor_text_entries);
 
-          if (!isMounted) {
-            return;
-          }
-          const { dataAbilityOne } = responseForAbilityOne;
-          const flavorTextOne = findHighestAbilityEntry(dataAbilityOne.flavor_text_entries);
+        const abilityEntriesToUpdate = {
+          abilityOne: {
+            name: abilityOneData.name,
+            flavorText: flavorTextOne?.flavor_text || "",
+          },
+        };
 
-          setAbilityEntries({
-            abilityOne: {
-              name: dataAbilityOne.name,
-              flavorText: flavorTextOne.flavor_text,
-            },
-          });
+        if (abilityTwoData) {
+          const flavorTextTwo = findHighestAbilityEntry(abilityTwoData.flavor_text_entries);
+
+          abilityEntriesToUpdate.abilityTwo = {
+            name: abilityTwoData.name,
+            flavorText: flavorTextTwo?.flavor_text || "",
+          };
         }
-      } catch (error) {}
+
+        if (!isMounted) return;
+
+        setPokemonInfo((prevInfo) => ({
+          ...prevInfo,
+          abilityEntries: {
+            ...prevInfo.abilityEntries,
+            ...abilityEntriesToUpdate,
+          },
+        }));
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     fetchAbilityData();
+
     return () => {
       isMounted = false;
     };
-  }, [abilityEntries, pokemonData.abilities]);
+  }, [pokemonInfo]);
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -171,16 +185,34 @@ const Modal = ({ closeModal, content, shinySprite }) => {
     );
   };
 
+  const getFormattedGeneration = (generationString) => {
+    const generationMap = {
+      "generation-i": "Generation 1",
+      "generation-ii": "Generation 2",
+      "generation-iii": "Generation 3",
+      "generation-iv": "Generation 4",
+      "generation-v": "Generation 5",
+      "generation-vi": "Generation 6",
+      "generation-vii": "Generation 7",
+      "generation-viii": "Generation 8",
+      "generation-viiii": "Generation 9",
+      "generation-x": "Generation 10",
+    };
+
+    return generationMap[generationString] || generationString;
+  };
+
   const classification = useMemo(
-    () => speciesData.genera?.find((entry) => entry.language.name === "en"),
-    [speciesData.genera]
+    () => pokemonInfo.speciesData.genera?.find((entry) => entry.language.name === "en"),
+    [pokemonInfo.speciesData.genera]
   );
-  const entry = findRecentSpeciesData(speciesData?.flavor_text_entries);
-  const stats = reorganizeStats(pokemonData?.stats);
+  const entry = findRecentSpeciesData(pokemonInfo.speciesData?.flavor_text_entries);
+  const stats = reorganizeStats(pokemonInfo.pokedexData?.stats);
+  const formattedGeneration = getFormattedGeneration(pokemonInfo.speciesData.generation?.name);
 
   const imageUrl = shinySprite
-    ? pokemonData.sprites?.other.home.front_shiny
-    : pokemonData.sprites?.other.home.front_default;
+    ? pokemonInfo.pokedexData.sprites?.other.home.front_shiny
+    : pokemonInfo.pokedexData.sprites?.other.home.front_default;
 
   return (
     <div className="modal">
@@ -189,27 +221,40 @@ const Modal = ({ closeModal, content, shinySprite }) => {
           <i className="fa-regular fa-circle-xmark fa-lg"></i>
         </button>
 
-        {pokemonData.sprites ? <img src={imageUrl} alt={`${pokemonData.name} sprite`} /> : <img alt="" />}
+        {pokemonInfo.pokedexData.sprites ? (
+          <img src={imageUrl} alt={`${pokemonInfo.pokedexData.name} sprite`} />
+        ) : (
+          <img alt="" />
+        )}
 
         <div className="info">
-          <div> #{pokemonData.id} </div>
-          <h4> {pokemonData.name} </h4>
-          <div> {speciesData.genera && speciesData.genera.length > 0 && classification.genus} </div>
+          <div> #{pokemonInfo.pokedexData.id} </div>
+          <h4> {pokemonInfo.pokedexData.name} </h4>
+          <div>
+            {" "}
+            {pokemonInfo.speciesData.genera && pokemonInfo.speciesData.genera.length > 0 && classification.genus}{" "}
+          </div>
 
-          {pokemonData.types && (
+          {pokemonInfo.pokedexData.types && (
             <div className="types">
-              <div className="type" style={{ backgroundColor: setBackgroundColor(pokemonData.types[0].type.name) }}>
-                {pokemonData.types[0].type.name}{" "}
+              <div
+                className="type"
+                style={{ backgroundColor: setBackgroundColor(pokemonInfo.pokedexData.types[0].type.name) }}
+              >
+                {pokemonInfo.pokedexData.types[0].type.name}{" "}
               </div>
-              {pokemonData.types[1] && (
-                <div className="type" style={{ backgroundColor: setBackgroundColor(pokemonData.types[1].type.name) }}>
-                  {pokemonData.types[1].type.name}{" "}
+              {pokemonInfo.pokedexData.types[1] && (
+                <div
+                  className="type"
+                  style={{ backgroundColor: setBackgroundColor(pokemonInfo.pokedexData.types[1].type.name) }}
+                >
+                  {pokemonInfo.pokedexData.types[1].type.name}{" "}
                 </div>
               )}
             </div>
           )}
 
-          <div className="pokedex-entry">{speciesData.flavor_text_entries && entry.flavor_text}</div>
+          <div className="pokedex-entry">{pokemonInfo.speciesData.flavor_text_entries && entry.flavor_text}</div>
         </div>
 
         <div className="stats">
@@ -219,23 +264,30 @@ const Modal = ({ closeModal, content, shinySprite }) => {
         <div className="abilities">
           <h5>Abilities</h5>
 
-          {pokemonData.abilities && (
+          {pokemonInfo.pokedexData.types && (
             <>
               <div className="ability-one">
-                <div className="ability-name" style={{ color: setBackgroundColor(pokemonData.types[0].type.name) }}>
-                  {abilityEntries.abilityOne.name}
+                <div
+                  className="ability-name"
+                  style={{ color: setBackgroundColor(pokemonInfo.pokedexData.types[0].type.name) }}
+                >
+                  {pokemonInfo.abilityEntries.abilityOne.name}
                 </div>
-                <div> {abilityEntries.abilityOne.flavorText} </div>
+                <div> {pokemonInfo.abilityEntries.abilityOne.flavorText} </div>
               </div>
 
-              {abilityEntries.abilityTwo.name && abilityEntries.abilityTwo.name !== abilityEntries.abilityOne.name && (
-                <div>
-                  <div className="ability-name" style={{ color: setBackgroundColor(pokemonData.types[0].type.name) }}>
-                    {abilityEntries.abilityTwo.name} <span> (hidden ability) </span>
+              {pokemonInfo.abilityEntries.abilityTwo.name &&
+                pokemonInfo.abilityEntries.abilityTwo.name !== pokemonInfo.abilityEntries.abilityOne.name && (
+                  <div>
+                    <div
+                      className="ability-name"
+                      style={{ color: setBackgroundColor(pokemonInfo.pokedexData.types[0].type.name) }}
+                    >
+                      {pokemonInfo.abilityEntries.abilityTwo.name} <span> (hidden ability) </span>
+                    </div>
+                    <div> {pokemonInfo.abilityEntries.abilityTwo.flavorText} </div>
                   </div>
-                  <div> {abilityEntries.abilityTwo.flavorText} </div>
-                </div>
-              )}
+                )}
             </>
           )}
         </div>
@@ -243,24 +295,30 @@ const Modal = ({ closeModal, content, shinySprite }) => {
         <div className="characteristics">
           <h5>Characteristics</h5>
 
-          {pokemonData.weight && speciesData.base_happiness && (
+          {pokemonInfo.pokedexData.weight && pokemonInfo.speciesData.base_happiness && (
             <>
-              <div style={{ color: setBackgroundColor(pokemonData.types[0].type.name) }}>Weight</div>
-              <div> {(pokemonData.weight / 4.536).toFixed(1)} lbs</div>
-              <div style={{ color: setBackgroundColor(pokemonData.types[0].type.name) }}>Height</div>
-              <div> {(pokemonData.height / 3.048).toFixed(1)} lbs</div>
-              <div style={{ color: setBackgroundColor(pokemonData.types[0].type.name) }}>Base Experience</div>
-              <div> {pokemonData.base_experience}</div>
-              <div style={{ color: setBackgroundColor(pokemonData.types[0].type.name) }}>Base Happiness</div>
-              <div> {speciesData.base_happiness}</div>
-              <div style={{ color: setBackgroundColor(pokemonData.types[0].type.name) }}>Catch Rate</div>
-              <div> {speciesData.capture_rate}</div>
-              <div style={{ color: setBackgroundColor(pokemonData.types[0].type.name) }}>Growth Rate</div>
-              <div> {speciesData.growth_rate.name}</div>
-              <div style={{ color: setBackgroundColor(pokemonData.types[0].type.name) }}>Hatch Time</div>
-              <div> {speciesData.hatch_counter}</div>
-              <div style={{ color: setBackgroundColor(pokemonData.types[0].type.name) }}>First Appeared</div>
-              <div> {speciesData.generation.name}</div>
+              <div style={{ color: setBackgroundColor(pokemonInfo.pokedexData.types[0].type.name) }}>Weight</div>
+              <div> {(pokemonInfo.pokedexData.weight / 4.536).toFixed(1)} lbs</div>
+              <div style={{ color: setBackgroundColor(pokemonInfo.pokedexData.types[0].type.name) }}>Height</div>
+              <div> {(pokemonInfo.pokedexData.height / 3.048).toFixed(1)} lbs</div>
+              <div style={{ color: setBackgroundColor(pokemonInfo.pokedexData.types[0].type.name) }}>
+                Base Experience
+              </div>
+              <div> {pokemonInfo.pokedexData.base_experience}</div>
+              <div style={{ color: setBackgroundColor(pokemonInfo.pokedexData.types[0].type.name) }}>
+                Base Happiness
+              </div>
+              <div> {pokemonInfo.speciesData.base_happiness}</div>
+              <div style={{ color: setBackgroundColor(pokemonInfo.pokedexData.types[0].type.name) }}>Catch Rate</div>
+              <div> {pokemonInfo.speciesData.capture_rate}</div>
+              <div style={{ color: setBackgroundColor(pokemonInfo.pokedexData.types[0].type.name) }}>Growth Rate</div>
+              <div> {pokemonInfo.speciesData.growth_rate.name}</div>
+              <div style={{ color: setBackgroundColor(pokemonInfo.pokedexData.types[0].type.name) }}>Hatch Time</div>
+              <div> {pokemonInfo.speciesData.hatch_counter}</div>
+              <div style={{ color: setBackgroundColor(pokemonInfo.pokedexData.types[0].type.name) }}>
+                First Appeared
+              </div>
+              <div> {formattedGeneration}</div>
             </>
           )}
         </div>
