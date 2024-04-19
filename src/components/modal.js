@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import "./modal.css";
 import axios from "axios";
 import { Types } from "../typesData";
@@ -171,7 +171,10 @@ const Modal = ({ closeModal, content, shinySprite }) => {
     );
   };
 
-  const classification = speciesData.genera?.find((entry) => entry.language.name === "en");
+  const classification = useMemo(
+    () => speciesData.genera?.find((entry) => entry.language.name === "en"),
+    [speciesData.genera]
+  );
   const entry = findRecentSpeciesData(speciesData?.flavor_text_entries);
   const stats = reorganizeStats(pokemonData?.stats);
 
