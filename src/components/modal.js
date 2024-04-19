@@ -71,14 +71,26 @@ const Modal = ({ closeModal, content, shinySprite }) => {
           const responseForAbilityOne = await axios.get(pokemonData?.abilities[0].ability.url);
           const responseForAbilityTwo = await axios.get(pokemonData?.abilities[1].ability.url);
 
+          const dataForAbilityOne = responseForAbilityOne.data;
+          const dataForAbilityTwo = responseForAbilityTwo.data;
+
+          const flavorTextOne = findHighestAbilityEntry(dataForAbilityOne.flavor_text_entries);
+          const flavorTextTwo = findHighestAbilityEntry(dataForAbilityTwo.flavor_text_entries);
+
           if (!isMounted) {
             return;
           }
 
           setAbilityEntries({
             ...abilityEntries,
-            abilityOne: responseForAbilityOne.data,
-            abilityTwo: responseForAbilityTwo.data,
+            abilityOne: {
+              name: dataForAbilityOne.name,
+              flavorText: flavorTextOne.flavor_text,
+            },
+            abilityTwo: {
+              name: dataForAbilityTwo.name,
+              flavorText: flavorTextTwo.flavor_text,
+            },
           });
         } else {
           const responseForAbilityOne = await axios.get(pokemonData?.abilities[0].ability.url);
@@ -86,8 +98,16 @@ const Modal = ({ closeModal, content, shinySprite }) => {
           if (!isMounted) {
             return;
           }
+          const { dataAbilityOne } = responseForAbilityOne;
+          const flavorTextOne = findHighestAbilityEntry(dataAbilityOne.flavor_text_entries);
 
-          setAbilityEntries({ ...abilityEntries, abilityOne: responseForAbilityOne.data });
+          setAbilityEntries({
+            ...abilityEntries,
+            abilityOne: {
+              name: dataAbilityOne.name,
+              flavorText: flavorTextOne.flavor_text,
+            },
+          });
         }
       } catch (error) {}
     };
@@ -156,8 +176,6 @@ const Modal = ({ closeModal, content, shinySprite }) => {
   const classification = speciesData.genera?.find((entry) => entry.language.name === "en");
   const entry = findRecentSpeciesData(speciesData?.flavor_text_entries);
   const stats = reorganizeStats(pokemonData?.stats);
-  const firstAbility = findHighestAbilityEntry(abilityEntries.abilityOne?.flavor_text_entries);
-  const secondAbility = findHighestAbilityEntry(abilityEntries.abilityTwo?.flavor_text_entries);
 
   const imageUrl = shinySprite
     ? pokemonData.sprites?.other.home.front_shiny
@@ -206,7 +224,7 @@ const Modal = ({ closeModal, content, shinySprite }) => {
                 <div className="ability-name" style={{ color: setBackgroundColor(pokemonData.types[0].type.name) }}>
                   {abilityEntries.abilityOne.name}
                 </div>
-                <div> {firstAbility?.flavor_text} </div>
+                <div> {abilityEntries.abilityOne?.flavorText} </div>
               </div>
 
               {abilityEntries.abilityTwo.name && abilityEntries.abilityTwo.name !== abilityEntries.abilityOne.name && (
@@ -214,7 +232,7 @@ const Modal = ({ closeModal, content, shinySprite }) => {
                   <div className="ability-name" style={{ color: setBackgroundColor(pokemonData.types[0].type.name) }}>
                     {abilityEntries.abilityTwo.name} <span> (hidden ability) </span>
                   </div>
-                  <div> {secondAbility?.flavor_text} </div>
+                  <div> {abilityEntries.abilityTwo?.flavorText} </div>
                 </div>
               )}
             </>
