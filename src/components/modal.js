@@ -82,7 +82,6 @@ const Modal = ({ closeModal, content, shinySprite }) => {
           }
 
           setAbilityEntries({
-            ...abilityEntries,
             abilityOne: {
               name: dataForAbilityOne.name,
               flavorText: flavorTextOne.flavor_text,
@@ -102,7 +101,6 @@ const Modal = ({ closeModal, content, shinySprite }) => {
           const flavorTextOne = findHighestAbilityEntry(dataAbilityOne.flavor_text_entries);
 
           setAbilityEntries({
-            ...abilityEntries,
             abilityOne: {
               name: dataAbilityOne.name,
               flavorText: flavorTextOne.flavor_text,
@@ -239,7 +237,7 @@ const Modal = ({ closeModal, content, shinySprite }) => {
           )}
         </div>
 
-        <div>
+        <div className="characteristics">
           <h5>Characteristics</h5>
 
           {pokemonData.weight && (
