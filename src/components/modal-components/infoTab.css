@@ -24,12 +24,8 @@
   margin-right: .5rem;
 }
 
-.info-tab .abilities {
+.info-tab .abilities .ability {
   margin-top: 1rem;
-}
-
-.info-tab .abilities .ability-one {
-  margin-bottom: 1rem;
 }
 
 .info-tab .abilities .ability-name {
