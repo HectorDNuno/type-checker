@@ -34,7 +34,7 @@ const InfoTab = ({ pokemonInfo, shinySprite, getColor }) => {
       "generation-vi": "Generation 6",
       "generation-vii": "Generation 7",
       "generation-viii": "Generation 8",
-      "generation-viiii": "Generation 9",
+      "generation-ix": "Generation 9",
       "generation-x": "Generation 10",
     };
 
@@ -89,19 +89,32 @@ const InfoTab = ({ pokemonInfo, shinySprite, getColor }) => {
         <h5>Abilities</h5>
         {pokemonInfo.pokedexData.types && (
           <>
-            <div className="ability-one">
+            <div className="ability">
               <div className="ability-name" style={{ color: getColor(pokemonInfo.pokedexData.types[0].type.name) }}>
                 {pokemonInfo.abilityEntries.abilityOne.name}
               </div>
               <div> {pokemonInfo.abilityEntries.abilityOne.flavorText} </div>
             </div>
+
             {pokemonInfo.abilityEntries.abilityTwo.name &&
               pokemonInfo.abilityEntries.abilityTwo.name !== pokemonInfo.abilityEntries.abilityOne.name && (
-                <div>
+                <div className="ability">
                   <div className="ability-name" style={{ color: getColor(pokemonInfo.pokedexData.types[0].type.name) }}>
-                    {pokemonInfo.abilityEntries.abilityTwo.name} <span> (hidden ability) </span>
+                    {pokemonInfo.abilityEntries.abilityTwo.name}
+                    {pokemonInfo.abilityEntries.abilityTwo.isHidden && <span> (hidden ability) </span>}
                   </div>
                   <div> {pokemonInfo.abilityEntries.abilityTwo.flavorText} </div>
+                </div>
+              )}
+
+            {pokemonInfo.abilityEntries.abilityThree.name &&
+              pokemonInfo.abilityEntries.abilityThree.name !== pokemonInfo.abilityEntries.abilityTwo.name && (
+                <div className="ability">
+                  <div className="ability-name" style={{ color: getColor(pokemonInfo.pokedexData.types[0].type.name) }}>
+                    {pokemonInfo.abilityEntries.abilityThree.name}
+                    {pokemonInfo.abilityEntries.abilityThree.isHidden && <span> (hidden ability) </span>}
+                  </div>
+                  <div> {pokemonInfo.abilityEntries.abilityThree.flavorText} </div>
                 </div>
               )}
           </>
