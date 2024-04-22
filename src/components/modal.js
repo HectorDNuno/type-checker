@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState, useContext } from "react";
 import "./modal.css";
 import axios from "axios";
-import InfoTab from "./infoTab";
+import InfoTab from "./modal-components/infoTab";
+import MovesTab from "./modal-components/movesTab";
 import { SelectedTypeContext } from "../Contexts";
-import { Types } from "../typesData";
 
 const Modal = ({ closeModal, content, shinySprite }) => {
   const [pokemonInfo, setPokemonInfo] = useState({
@@ -199,8 +199,8 @@ const Modal = ({ closeModal, content, shinySprite }) => {
         <div className="modal-content">
           {activeTab === 1 && <InfoTab pokemonInfo={pokemonInfo} shinySprite={shinySprite} />}
 
-          {activeTab === 2 && <h1>Evolutions</h1>}
-          {activeTab === 3 && <h1>Moves</h1>}
+          {activeTab === 2 && <h1>Moves</h1>}
+          {activeTab === 3 && <MovesTab />}
         </div>
       </div>
     </div>

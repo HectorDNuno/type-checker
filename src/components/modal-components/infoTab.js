@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import "./infoTab.css";
-import { Types } from "../typesData";
-import Barchart from "./barchart";
+import { Types } from "../../typesData";
+import Barchart from "../barchart";
 
 const InfoTab = ({ pokemonInfo, shinySprite }) => {
   const setColor = (typeFromList) => {
