@@ -13,6 +13,7 @@ const Modal = ({ closeModal, content, shinySprite }) => {
     abilityEntries: {
       abilityOne: {},
       abilityTwo: {},
+      abilityThree: {},
     },
   });
 
@@ -111,9 +112,10 @@ const Modal = ({ closeModal, content, shinySprite }) => {
           return response.data;
         };
 
-        const [abilityOneData, abilityTwoData] = await Promise.all([
+        const [abilityOneData, abilityTwoData, abilityThreeData] = await Promise.all([
           fetchAbility(0),
           pokedexData.abilities[1] ? fetchAbility(1) : null,
+          pokedexData.abilities[2] ? fetchAbility(2) : null,
         ]);
 
         const flavorTextOne = findHighestAbilityEntry(abilityOneData.flavor_text_entries);
@@ -122,6 +124,7 @@ const Modal = ({ closeModal, content, shinySprite }) => {
           abilityOne: {
             name: abilityOneData.name,
             flavorText: flavorTextOne?.flavor_text || "",
+            isHidden: pokedexData.abilities[0].is_hidden,
           },
         };
 
@@ -131,6 +134,17 @@ const Modal = ({ closeModal, content, shinySprite }) => {
           abilityEntriesToUpdate.abilityTwo = {
             name: abilityTwoData.name,
             flavorText: flavorTextTwo?.flavor_text || "",
+            isHidden: pokedexData.abilities[1].is_hidden,
+          };
+        }
+
+        if (abilityThreeData) {
+          const flavorTextThree = findHighestAbilityEntry(abilityThreeData.flavor_text_entries);
+
+          abilityEntriesToUpdate.abilityThree = {
+            name: abilityThreeData.name,
+            flavorText: flavorTextThree?.flavor_text || "",
+            isHidden: pokedexData.abilities[2].is_hidden,
           };
         }
 
