@@ -1,14 +1,8 @@
 import React, { useMemo } from "react";
 import "./infoTab.css";
-import { Types } from "../../typesData";
 import Barchart from "../barchart";
 
-const InfoTab = ({ pokemonInfo, shinySprite }) => {
-  const setColor = (typeFromList) => {
-    const typeColor = Types.find((type) => type.title === typeFromList)?.color;
-    return typeColor;
-  };
-
+const InfoTab = ({ pokemonInfo, shinySprite, getColor }) => {
   const findRecentSpeciesData = (entries) => {
     if (!entries || entries.length === 0) return null;
 
@@ -74,11 +68,11 @@ const InfoTab = ({ pokemonInfo, shinySprite }) => {
 
         {pokemonInfo.pokedexData.types && (
           <div className="types">
-            <div className="type" style={{ backgroundColor: setColor(pokemonInfo.pokedexData.types[0].type.name) }}>
+            <div className="type" style={{ backgroundColor: getColor(pokemonInfo.pokedexData.types[0].type.name) }}>
               {pokemonInfo.pokedexData.types[0].type.name}{" "}
             </div>
             {pokemonInfo.pokedexData.types[1] && (
-              <div className="type" style={{ backgroundColor: setColor(pokemonInfo.pokedexData.types[1].type.name) }}>
+              <div className="type" style={{ backgroundColor: getColor(pokemonInfo.pokedexData.types[1].type.name) }}>
                 {pokemonInfo.pokedexData.types[1].type.name}{" "}
               </div>
             )}
@@ -96,7 +90,7 @@ const InfoTab = ({ pokemonInfo, shinySprite }) => {
         {pokemonInfo.pokedexData.types && (
           <>
             <div className="ability-one">
-              <div className="ability-name" style={{ color: setColor(pokemonInfo.pokedexData.types[0].type.name) }}>
+              <div className="ability-name" style={{ color: getColor(pokemonInfo.pokedexData.types[0].type.name) }}>
                 {pokemonInfo.abilityEntries.abilityOne.name}
               </div>
               <div> {pokemonInfo.abilityEntries.abilityOne.flavorText} </div>
@@ -104,7 +98,7 @@ const InfoTab = ({ pokemonInfo, shinySprite }) => {
             {pokemonInfo.abilityEntries.abilityTwo.name &&
               pokemonInfo.abilityEntries.abilityTwo.name !== pokemonInfo.abilityEntries.abilityOne.name && (
                 <div>
-                  <div className="ability-name" style={{ color: setColor(pokemonInfo.pokedexData.types[0].type.name) }}>
+                  <div className="ability-name" style={{ color: getColor(pokemonInfo.pokedexData.types[0].type.name) }}>
                     {pokemonInfo.abilityEntries.abilityTwo.name} <span> (hidden ability) </span>
                   </div>
                   <div> {pokemonInfo.abilityEntries.abilityTwo.flavorText} </div>
@@ -118,21 +112,21 @@ const InfoTab = ({ pokemonInfo, shinySprite }) => {
         <h5>Characteristics</h5>
         {pokemonInfo.pokedexData.weight && pokemonInfo.speciesData.base_happiness && (
           <>
-            <div style={{ color: setColor(pokemonInfo.pokedexData.types[0].type.name) }}>Weight</div>
+            <div style={{ color: getColor(pokemonInfo.pokedexData.types[0].type.name) }}>Weight</div>
             <div> {(pokemonInfo.pokedexData.weight / 4.536).toFixed(1)} lbs</div>
-            <div style={{ color: setColor(pokemonInfo.pokedexData.types[0].type.name) }}>Height</div>
+            <div style={{ color: getColor(pokemonInfo.pokedexData.types[0].type.name) }}>Height</div>
             <div> {(pokemonInfo.pokedexData.height / 3.048).toFixed(1)} lbs</div>
-            <div style={{ color: setColor(pokemonInfo.pokedexData.types[0].type.name) }}>Base Experience</div>
+            <div style={{ color: getColor(pokemonInfo.pokedexData.types[0].type.name) }}>Base Experience</div>
             <div> {pokemonInfo.pokedexData.base_experience}</div>
-            <div style={{ color: setColor(pokemonInfo.pokedexData.types[0].type.name) }}>Base Happiness</div>
+            <div style={{ color: getColor(pokemonInfo.pokedexData.types[0].type.name) }}>Base Happiness</div>
             <div> {pokemonInfo.speciesData.base_happiness}</div>
-            <div style={{ color: setColor(pokemonInfo.pokedexData.types[0].type.name) }}>Catch Rate</div>
+            <div style={{ color: getColor(pokemonInfo.pokedexData.types[0].type.name) }}>Catch Rate</div>
             <div> {pokemonInfo.speciesData.capture_rate}</div>
-            <div style={{ color: setColor(pokemonInfo.pokedexData.types[0].type.name) }}>Growth Rate</div>
+            <div style={{ color: getColor(pokemonInfo.pokedexData.types[0].type.name) }}>Growth Rate</div>
             <div> {pokemonInfo.speciesData.growth_rate.name}</div>
-            <div style={{ color: setColor(pokemonInfo.pokedexData.types[0].type.name) }}>Hatch Time</div>
+            <div style={{ color: getColor(pokemonInfo.pokedexData.types[0].type.name) }}>Hatch Time</div>
             <div> {pokemonInfo.speciesData.hatch_counter}</div>
-            <div style={{ color: setColor(pokemonInfo.pokedexData.types[0].type.name) }}>First Appeared</div>
+            <div style={{ color: getColor(pokemonInfo.pokedexData.types[0].type.name) }}>First Appeared</div>
             <div> {formattedGeneration}</div>
           </>
         )}
