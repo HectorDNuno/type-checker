@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState, useContext } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./modal.css";
 import axios from "axios";
 import InfoTab from "./modal-components/infoTab";
 import MovesTab from "./modal-components/movesTab";
-import { SelectedTypeContext } from "../Contexts";
+import EvolutionsTab from "./modal-components/evolutionsTab";
+import { Types } from "../typesData";
 
 const Modal = ({ closeModal, content, shinySprite }) => {
   const [pokemonInfo, setPokemonInfo] = useState({
@@ -18,7 +19,25 @@ const Modal = ({ closeModal, content, shinySprite }) => {
   const [activeTab, setActiveTab] = useState(1);
 
   const modalRef = useRef(null);
-  const { selectedType } = useContext(SelectedTypeContext);
+
+  const getColor = (typeFromList) => {
+    const color = Types.find((type) => type.title === typeFromList)?.color;
+    return color;
+  };
+
+  const findHighestAbilityEntry = (entries) => {
+    if (!entries || entries.length === 0) return null;
+
+    const filteredByLanguage = entries.filter((entry) => entry.language.name === "en");
+    const versionNumbers = filteredByLanguage.map((entry) =>
+      parseInt(entry.version_group.url.split("/").slice(-2, -1)[0])
+    );
+    const maxVersionNumber = Math.max(...versionNumbers);
+
+    return filteredByLanguage.find(
+      (entry) => parseInt(entry.version_group.url.split("/").slice(-2, -1)[0]) === maxVersionNumber
+    );
+  };
 
   useEffect(() => {
     let isMounted = true;
@@ -150,34 +169,30 @@ const Modal = ({ closeModal, content, shinySprite }) => {
     };
   }, [closeModal]);
 
-  const findHighestAbilityEntry = (entries) => {
-    if (!entries || entries.length === 0) return null;
-
-    const filteredByLanguage = entries.filter((entry) => entry.language.name === "en");
-    const versionNumbers = filteredByLanguage.map((entry) =>
-      parseInt(entry.version_group.url.split("/").slice(-2, -1)[0])
-    );
-    const maxVersionNumber = Math.max(...versionNumbers);
-
-    return filteredByLanguage.find(
-      (entry) => parseInt(entry.version_group.url.split("/").slice(-2, -1)[0]) === maxVersionNumber
-    );
-  };
-
   return (
     <div className="modal">
       <div ref={modalRef} className="modal-inner">
         <div className="tab-nav">
           <button
             onClick={() => setActiveTab(1)}
-            style={{ backgroundColor: activeTab === 1 ? selectedType.color : "" }}
+            style={{
+              backgroundColor:
+                activeTab === 1 && pokemonInfo.pokedexData.types
+                  ? getColor(pokemonInfo.pokedexData.types[0].type.name)
+                  : "",
+            }}
           >
             <i className="fa-solid fa-circle-info"></i> info
           </button>
 
           <button
             onClick={() => setActiveTab(2)}
-            style={{ backgroundColor: activeTab === 2 ? selectedType.color : "" }}
+            style={{
+              backgroundColor:
+                activeTab === 2 && pokemonInfo.pokedexData.types
+                  ? getColor(pokemonInfo.pokedexData.types[0].type.name)
+                  : "",
+            }}
           >
             <i className="fa-solid fa-circle-nodes"></i>
             evolutions
@@ -185,7 +200,12 @@ const Modal = ({ closeModal, content, shinySprite }) => {
 
           <button
             onClick={() => setActiveTab(3)}
-            style={{ backgroundColor: activeTab === 3 ? selectedType.color : "" }}
+            style={{
+              backgroundColor:
+                activeTab === 3 && pokemonInfo.pokedexData.types
+                  ? getColor(pokemonInfo.pokedexData.types[0].type.name)
+                  : "",
+            }}
           >
             <i className="fa-solid fa-bolt"></i>
             moves
@@ -197,9 +217,9 @@ const Modal = ({ closeModal, content, shinySprite }) => {
         </button>
 
         <div className="modal-content">
-          {activeTab === 1 && <InfoTab pokemonInfo={pokemonInfo} shinySprite={shinySprite} />}
+          {activeTab === 1 && <InfoTab pokemonInfo={pokemonInfo} shinySprite={shinySprite} getColor={getColor} />}
 
-          {activeTab === 2 && <h1>Moves</h1>}
+          {activeTab === 2 && <EvolutionsTab />}
           {activeTab === 3 && <MovesTab />}
         </div>
       </div>
