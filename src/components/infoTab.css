@@ -1,0 +1,46 @@
+.info-tab img {
+  height: 200px;
+  width: 200px;
+  object-fit: cover;
+  margin: 0 auto;
+}
+
+.info-tab .info h4 {
+  text-transform: capitalize;
+}
+
+.info-tab .types {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.info-tab .type {
+  padding: .25rem;
+  min-width: 6em;
+  border-radius: .5rem;
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+  margin-right: .5rem;
+}
+
+.info-tab .abilities {
+  margin-top: 1rem;
+}
+
+.info-tab .abilities .ability-one {
+  margin-bottom: 1rem;
+}
+
+.info-tab .abilities .ability-name {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.info-tab .abilities .ability-name span {
+  color: #c1c1c1;
+}
+
+.info-tab .characteristics {
+  margin-top: 1rem;
+}
