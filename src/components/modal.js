@@ -10,11 +10,7 @@ const Modal = ({ closeModal, content, shinySprite }) => {
   const [pokemonInfo, setPokemonInfo] = useState({
     pokedexData: {},
     speciesData: {},
-    abilityEntries: {
-      abilityOne: {},
-      abilityTwo: {},
-      abilityThree: {},
-    },
+    abilityEntries: {},
   });
 
   const [activeTab, setActiveTab] = useState(1);
@@ -24,20 +20,6 @@ const Modal = ({ closeModal, content, shinySprite }) => {
   const getColor = (typeFromList) => {
     const color = Types.find((type) => type.title === typeFromList)?.color;
     return color;
-  };
-
-  const findHighestAbilityEntry = (entries) => {
-    if (!entries || entries.length === 0) return null;
-
-    const filteredByLanguage = entries.filter((entry) => entry.language.name === "en");
-    const versionNumbers = filteredByLanguage.map((entry) =>
-      parseInt(entry.version_group.url.split("/").slice(-2, -1)[0])
-    );
-    const maxVersionNumber = Math.max(...versionNumbers);
-
-    return filteredByLanguage.find(
-      (entry) => parseInt(entry.version_group.url.split("/").slice(-2, -1)[0]) === maxVersionNumber
-    );
   };
 
   useEffect(() => {
@@ -112,41 +94,41 @@ const Modal = ({ closeModal, content, shinySprite }) => {
           return response.data;
         };
 
+        const findHighestAbilityEntry = (entries) => {
+          if (!entries || entries.length === 0) return null;
+
+          const filteredByLanguage = entries.filter((entry) => entry.language.name === "en");
+          const versionNumbers = filteredByLanguage.map((entry) =>
+            parseInt(entry.version_group.url.split("/").slice(-2, -1)[0])
+          );
+          const maxVersionNumber = Math.max(...versionNumbers);
+
+          return filteredByLanguage.find(
+            (entry) => parseInt(entry.version_group.url.split("/").slice(-2, -1)[0]) === maxVersionNumber
+          );
+        };
+
+        const abilityEntriesToUpdate = {};
+
         const [abilityOneData, abilityTwoData, abilityThreeData] = await Promise.all([
           fetchAbility(0),
           pokedexData.abilities[1] ? fetchAbility(1) : null,
           pokedexData.abilities[2] ? fetchAbility(2) : null,
         ]);
 
-        const flavorTextOne = findHighestAbilityEntry(abilityOneData.flavor_text_entries);
+        [abilityOneData, abilityTwoData, abilityThreeData].map((abilityData, index) => {
+          if (abilityData) {
+            const flavorText = findHighestAbilityEntry(abilityData.flavor_text_entries);
+            const abilityName = `ability${index + 1}`;
 
-        const abilityEntriesToUpdate = {
-          abilityOne: {
-            name: abilityOneData.name,
-            flavorText: flavorTextOne?.flavor_text || "",
-            isHidden: pokedexData.abilities[0].is_hidden,
-          },
-        };
-
-        if (abilityTwoData) {
-          const flavorTextTwo = findHighestAbilityEntry(abilityTwoData.flavor_text_entries);
-
-          abilityEntriesToUpdate.abilityTwo = {
-            name: abilityTwoData.name,
-            flavorText: flavorTextTwo?.flavor_text || "",
-            isHidden: pokedexData.abilities[1].is_hidden,
-          };
-        }
-
-        if (abilityThreeData) {
-          const flavorTextThree = findHighestAbilityEntry(abilityThreeData.flavor_text_entries);
-
-          abilityEntriesToUpdate.abilityThree = {
-            name: abilityThreeData.name,
-            flavorText: flavorTextThree?.flavor_text || "",
-            isHidden: pokedexData.abilities[2].is_hidden,
-          };
-        }
+            abilityEntriesToUpdate[abilityName] = {
+              name: abilityData.name,
+              flavorText: flavorText?.flavor_text || "",
+              isHidden: pokedexData.abilities[index].is_hidden,
+            };
+          }
+          return abilityEntriesToUpdate;
+        });
 
         if (!isMounted) return;
 
