@@ -89,32 +89,34 @@ const InfoTab = ({ pokemonInfo, shinySprite, getColor }) => {
         <h5>Abilities</h5>
         {pokemonInfo.pokedexData.types && (
           <>
-            <div className="ability">
-              <div className="ability-name" style={{ color: getColor(pokemonInfo.pokedexData.types[0].type.name) }}>
-                {pokemonInfo.abilityEntries.abilityOne.name}
+            {pokemonInfo.abilityEntries.ability1 && (
+              <div className="ability">
+                <div className="ability-name" style={{ color: getColor(pokemonInfo.pokedexData.types[0].type.name) }}>
+                  {pokemonInfo.abilityEntries.ability1.name}
+                </div>
+                <div> {pokemonInfo.abilityEntries.ability1.flavorText} </div>
               </div>
-              <div> {pokemonInfo.abilityEntries.abilityOne.flavorText} </div>
-            </div>
+            )}
 
-            {pokemonInfo.abilityEntries.abilityTwo.name &&
-              pokemonInfo.abilityEntries.abilityTwo.name !== pokemonInfo.abilityEntries.abilityOne.name && (
+            {pokemonInfo.abilityEntries.ability2 &&
+              pokemonInfo.abilityEntries.ability2.name !== pokemonInfo.abilityEntries.ability1.name && (
                 <div className="ability">
                   <div className="ability-name" style={{ color: getColor(pokemonInfo.pokedexData.types[0].type.name) }}>
-                    {pokemonInfo.abilityEntries.abilityTwo.name}
-                    {pokemonInfo.abilityEntries.abilityTwo.isHidden && <span> (hidden ability) </span>}
+                    {pokemonInfo.abilityEntries.ability2.name}
+                    {pokemonInfo.abilityEntries.ability2.isHidden && <span> (hidden ability) </span>}
                   </div>
-                  <div> {pokemonInfo.abilityEntries.abilityTwo.flavorText} </div>
+                  <div> {pokemonInfo.abilityEntries.ability2.flavorText} </div>
                 </div>
               )}
 
-            {pokemonInfo.abilityEntries.abilityThree.name &&
-              pokemonInfo.abilityEntries.abilityThree.name !== pokemonInfo.abilityEntries.abilityTwo.name && (
+            {pokemonInfo.abilityEntries.ability3 &&
+              pokemonInfo.abilityEntries.ability3.name !== pokemonInfo.abilityEntries.ability2.name && (
                 <div className="ability">
                   <div className="ability-name" style={{ color: getColor(pokemonInfo.pokedexData.types[0].type.name) }}>
-                    {pokemonInfo.abilityEntries.abilityThree.name}
-                    {pokemonInfo.abilityEntries.abilityThree.isHidden && <span> (hidden ability) </span>}
+                    {pokemonInfo.abilityEntries.ability3.name}
+                    {pokemonInfo.abilityEntries.ability3.isHidden && <span> (hidden ability) </span>}
                   </div>
-                  <div> {pokemonInfo.abilityEntries.abilityThree.flavorText} </div>
+                  <div> {pokemonInfo.abilityEntries.ability3.flavorText} </div>
                 </div>
               )}
           </>
