@@ -41,6 +41,20 @@ const InfoTab = ({ pokemonInfo, shinySprite, getColor }) => {
     return generationMap[generationString] || generationString;
   };
 
+  const calculateGenderPercentage = (genderRate) => {
+    if (genderRate === -1) return "Genderless";
+
+    const remainder = genderRate % 8;
+    const percentage = (remainder / 8) * 100;
+    const femaleRate = percentage.toFixed(2).replace(/\.?0*$/, "");
+    const maleRate = 100 - femaleRate;
+
+    const maleSymbol = "\u2642";
+    const femaleSymbol = "\u2640";
+
+    return `${maleRate}% ${maleSymbol} ${femaleRate}% ${femaleSymbol}  `;
+  };
+
   const classification = useMemo(
     () => pokemonInfo.speciesData.genera?.find((entry) => entry.language.name === "en"),
     [pokemonInfo.speciesData.genera]
@@ -137,10 +151,17 @@ const InfoTab = ({ pokemonInfo, shinySprite, getColor }) => {
             <div> {pokemonInfo.speciesData.base_happiness}</div>
             <div style={{ color: getColor(pokemonInfo.pokedexData.types[0].type.name) }}>Catch Rate</div>
             <div> {pokemonInfo.speciesData.capture_rate}</div>
-            <div style={{ color: getColor(pokemonInfo.pokedexData.types[0].type.name) }}>Growth Rate</div>
-            <div> {pokemonInfo.speciesData.growth_rate.name}</div>
             <div style={{ color: getColor(pokemonInfo.pokedexData.types[0].type.name) }}>Hatch Time</div>
             <div> {pokemonInfo.speciesData.hatch_counter}</div>
+            <div style={{ color: getColor(pokemonInfo.pokedexData.types[0].type.name) }}>Gender Ratio</div>
+            <div> {calculateGenderPercentage(pokemonInfo.speciesData.gender_rate)} </div>
+            <div style={{ color: getColor(pokemonInfo.pokedexData.types[0].type.name) }}>Growth Rate</div>
+            <div> {pokemonInfo.speciesData.growth_rate.name}</div>
+            <div style={{ color: getColor(pokemonInfo.pokedexData.types[0].type.name) }}>
+              {pokemonInfo.speciesData.egg_groups.length > 1 ? "Egg Groups" : "Egg group"}
+            </div>
+            <div> {pokemonInfo.speciesData.egg_groups[0].name} </div>
+            {pokemonInfo.speciesData.egg_groups[1] && <div> {pokemonInfo.speciesData.egg_groups[1].name} </div>}
             <div style={{ color: getColor(pokemonInfo.pokedexData.types[0].type.name) }}>First Appeared</div>
             <div> {formattedGeneration}</div>
           </>
