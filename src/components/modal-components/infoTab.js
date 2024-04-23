@@ -1,8 +1,10 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import "./infoTab.css";
 import Barchart from "../barchart";
 
 const InfoTab = ({ pokemonInfo, shinySprite, getColor }) => {
+  const [isModalImgShiny, setIsModalImgShiny] = useState(false);
+
   const findRecentSpeciesData = (entries) => {
     if (!entries || entries.length === 0) return null;
 
@@ -61,9 +63,8 @@ const InfoTab = ({ pokemonInfo, shinySprite, getColor }) => {
   );
   const entry = findRecentSpeciesData(pokemonInfo.speciesData?.flavor_text_entries);
   const stats = reorganizeStats(pokemonInfo.pokedexData?.stats);
-  const formattedGeneration = getFormattedGeneration(pokemonInfo.speciesData.generation?.name);
 
-  const imageUrl = shinySprite
+  const imageUrl = isModalImgShiny
     ? pokemonInfo.pokedexData.sprites?.other.home.front_shiny
     : pokemonInfo.pokedexData.sprites?.other.home.front_default;
 
@@ -83,13 +84,20 @@ const InfoTab = ({ pokemonInfo, shinySprite, getColor }) => {
         {pokemonInfo.pokedexData.types && (
           <div className="types">
             <div className="type" style={{ backgroundColor: getColor(pokemonInfo.pokedexData.types[0].type.name) }}>
-              {pokemonInfo.pokedexData.types[0].type.name}{" "}
+              {pokemonInfo.pokedexData.types[0].type.name}
             </div>
             {pokemonInfo.pokedexData.types[1] && (
               <div className="type" style={{ backgroundColor: getColor(pokemonInfo.pokedexData.types[1].type.name) }}>
-                {pokemonInfo.pokedexData.types[1].type.name}{" "}
+                {pokemonInfo.pokedexData.types[1].type.name}
               </div>
             )}
+            <i
+              onClick={() => {
+                setIsModalImgShiny(!isModalImgShiny);
+              }}
+              className="fa-solid fa-star fa-xl"
+              style={{ color: isModalImgShiny ? "#febf00" : "#c1c1c1" }}
+            ></i>
           </div>
         )}
         <div className="pokedex-entry">{pokemonInfo.speciesData.flavor_text_entries && entry.flavor_text}</div>
@@ -139,12 +147,12 @@ const InfoTab = ({ pokemonInfo, shinySprite, getColor }) => {
 
       <div className="characteristics">
         <h5>Characteristics</h5>
-        {pokemonInfo.pokedexData.weight && pokemonInfo.speciesData.base_happiness && (
+        {pokemonInfo.pokedexData.weight && pokemonInfo.speciesData.capture_rate && (
           <>
             <div style={{ color: getColor(pokemonInfo.pokedexData.types[0].type.name) }}>Weight</div>
             <div> {(pokemonInfo.pokedexData.weight / 4.536).toFixed(1)} lbs</div>
             <div style={{ color: getColor(pokemonInfo.pokedexData.types[0].type.name) }}>Height</div>
-            <div> {(pokemonInfo.pokedexData.height / 3.048).toFixed(1)} lbs</div>
+            <div> {(pokemonInfo.pokedexData.height / 3.048).toFixed(1)}'</div>
             <div style={{ color: getColor(pokemonInfo.pokedexData.types[0].type.name) }}>Base Experience</div>
             <div> {pokemonInfo.pokedexData.base_experience}</div>
             <div style={{ color: getColor(pokemonInfo.pokedexData.types[0].type.name) }}>Base Happiness</div>
@@ -160,10 +168,13 @@ const InfoTab = ({ pokemonInfo, shinySprite, getColor }) => {
             <div style={{ color: getColor(pokemonInfo.pokedexData.types[0].type.name) }}>
               {pokemonInfo.speciesData.egg_groups.length > 1 ? "Egg Groups" : "Egg group"}
             </div>
-            <div> {pokemonInfo.speciesData.egg_groups[0].name} </div>
+            <div>
+              {" "}
+              {pokemonInfo.speciesData.egg_groups.length > 1 ? pokemonInfo.speciesData.egg_groups[0].name : "N/A"}{" "}
+            </div>
             {pokemonInfo.speciesData.egg_groups[1] && <div> {pokemonInfo.speciesData.egg_groups[1].name} </div>}
             <div style={{ color: getColor(pokemonInfo.pokedexData.types[0].type.name) }}>First Appeared</div>
-            <div> {formattedGeneration}</div>
+            <div> {getFormattedGeneration(pokemonInfo.speciesData.generation?.name)}</div>
           </>
         )}
       </div>

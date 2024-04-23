@@ -11,7 +11,12 @@
 
 .info-tab .types {
   display: flex;
+  align-items: center;
   margin-bottom: 1rem;
+}
+
+.info-tab .types i {
+  cursor: pointer;
 }
 
 .info-tab .type {
